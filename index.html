@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECHO - AI-Powered Hearing Health</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <style>
+    :root {
+      /* Light theme - Bolt AI inspired */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --bg-card: #ffffff;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-accent: #3b82f6;
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #8b5cf6;
+      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      --accent-glow: 0 0 20px rgba(59, 130, 246, 0.2);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] {
+      /* Dark theme - Bolt AI inspired */
+      --bg-primary: #000000;
+      --bg-secondary: #0a0a0a;
+      --bg-tertiary: #111111;
+      --bg-card: #0a0a0a;
+      --text-primary: #ffffff;
+      --text-secondary: #e2e8f0;
+      --text-muted: #94a3b8;
+      --text-accent: #60a5fa;
+      --border-light: #1e293b;
+      --border-medium: #334155;
+      --accent-primary: #60a5fa;
+      --accent-secondary: #a78bfa;
+      --accent-gradient: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+      --accent-glow: 0 0 20px rgba(96, 165, 250, 0.3);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+      --gradient-bg: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--gradient-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-x: hidden;
+      min-height: 100vh;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+      padding-top: 80px;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    /* Enhanced scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-secondary);
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Bootstrap Navbar - Bolt AI Style */
+    .navbar {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(40px) saturate(200%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      padding: 1rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    .navbar-expand-lg {
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .navbar-expand-lg .navbar-nav {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+      /* Let Bootstrap control display via its media queries */
+      flex-basis: auto;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    /* Allow Bootstrap to control the toggler visibility */
+
+
+
+    .navbar.fixed-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+
+    [data-theme="dark"] .navbar {
+      background: rgba(0, 0, 0, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] .navbar.scrolled {
+      background: rgba(0, 0, 0, 0.98);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .navbar-brand {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      margin-right: 2rem;
+    }
+
+    .navbar-brand:hover {
+      transform: translateY(-1px);
+    }
+
+    .brand-logo {
+      background: var(--accent-gradient);
+      border-radius: 10px;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar-brand:hover .brand-logo {
+      transform: rotate(5deg) scale(1.05);
+      box-shadow: var(--accent-glow);
+    }
+
+    .brand-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-left: 0.5rem;
+    }
+
+    /* Navbar Toggler */
+    .navbar-toggler {
+      border: none;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    [data-theme="dark"] .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.55)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-nav {
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .navbar-nav .nav-item {
+      list-style: none;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      padding: 0.75rem 0;
+      text-decoration: none;
+      display: block;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Navbar Collapse */
+    .navbar-collapse {
+      flex-grow: 1;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Do not force-hide; Bootstrap JS handles the collapse */
+    .navbar-collapse.collapse:not(.show) {
+      display: none;
+    }
+
+    .navbar-collapse.collapsing {
+      height: auto;
+      overflow: hidden;
+      transition: height 0.35s ease;
+    }
+
+    .navbar-collapse.show {
+      display: flex;
+    }
+
+    /* Ensure proper navbar layout */
+    .navbar > .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+      flex-basis: auto;
+      flex-grow: 0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+    }
+
+    .navbar-actions {
+      gap: 1rem;
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .theme-toggle {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      padding: 0.75rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .theme-toggle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent-gradient);
+      transition: left 0.3s ease;
+      z-index: 1;
+    }
+
+    .theme-toggle:hover::before {
+      left: 0;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--accent-glow);
+      border-color: var(--accent-primary);
+    }
+
+    .theme-toggle i {
+      position: relative;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    .theme-toggle:hover i {
+      color: white;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+      transition: left 0.3s ease;
+      z-index: 1;
+    }
+
+    .btn-primary:hover::before {
+      left: 0;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary span,
+    .btn-primary i {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 1024px) {
+      .navbar-nav {
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 991px) {
+      /* keep default Bootstrap behavior */
+      .navbar-nav {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem 0;
+        text-align: center;
+      }
+      .navbar-actions {
+        margin: 1rem 0 0 0;
+        justify-content: center;
+        flex-direction: row;
+        gap: 0.75rem;
+      }
+      .navbar-brand { margin-right: 0; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-brand {
+        font-size: 1.5rem;
+      }
+      
+      .navbar-actions {
+        gap: 0.75rem;
+      }
+      
+      .btn-primary {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar-brand {
+        font-size: 1.25rem;
+      }
+      
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .btn-primary {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.875rem;
+      font-weight: 900;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      margin-right: 2rem;
+    }
+
+    .navbar-brand:hover {
+      transform: translateY(-2px);
+    }
+
+    .brand-logo {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: var(--accent-gradient);
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .navbar-brand:hover .brand-logo {
+      transform: rotate(8deg) scale(1.1);
+      box-shadow: var(--accent-glow);
+    }
+
+    .brand-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      filter: brightness(0) invert(1);
+    }
+
+    .brand-text {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      padding: 0.75rem 0;
+      letter-spacing: 0.01em;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .navbar-nav .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Enhanced Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn span {
+      width: 100%;
+      height: 3px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Enhanced Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-light);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(20px);
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    [data-theme="dark"] .mobile-menu {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-light);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .mobile-nav {
+      list-style: none;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    .mobile-nav li {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu.active .mobile-nav li {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobile-menu.active .mobile-nav li:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu.active .mobile-nav li:nth-child(2) { transition-delay: 0.2s; }
+    .mobile-menu.active .mobile-nav li:nth-child(3) { transition-delay: 0.3s; }
+    .mobile-menu.active .mobile-nav li:nth-child(4) { transition-delay: 0.4s; }
+    .mobile-menu.active .mobile-nav li:nth-child(5) { transition-delay: 0.5s; }
+
+    .mobile-nav a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      padding: 0.75rem 0;
+      display: block;
+      position: relative;
+    }
+
+    .mobile-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-gradient);
+      transition: width 0.3s ease;
+    }
+
+    .mobile-nav a:hover {
+      color: var(--accent-primary);
+      transform: translateX(10px);
+    }
+
+    .mobile-nav a:hover::after {
+      width: 100%;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .navbar-actions-section {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Enhanced Theme Toggle - Bolt AI Style */
+    .theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.75rem;
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .theme-toggle::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent-gradient);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    .theme-toggle:hover::before {
+      left: 0;
+    }
+
+    .theme-toggle:hover {
+      color: white;
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: var(--accent-glow);
+    }
+
+    [data-theme="dark"] .theme-toggle {
+      background: var(--bg-card);
+      border-color: var(--border-light);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Buttons - Bolt AI Style */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      border: none;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    .btn-primary:hover::before {
+      left: 0;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4), var(--accent-glow);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Hero Section - Bolt AI Style */
+    .hero {
+      padding: 10rem 0 6rem;
+      text-align: center;
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+      background-size: 200% 200%;
+      animation: shimmer 3s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 2rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.375rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      animation: fadeInUp 1s ease-out 0.2s both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease-out 0.4s both;
+    }
+
+    /* Section Styles - Bolt AI Style */
+    .section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .section:nth-child(even) {
+      background: var(--bg-secondary);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Cards - Bolt AI Style */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--accent-primary);
+    }
+
+    .card:hover .card-icon {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--accent-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: var(--accent-glow);
+    }
+
+    .card-title {
+      font-size: 1.375rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .card-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Stronger light-mode contrast for content cards */
+    [data-theme="light"] .card .card-title { color: #0f172a; }
+    [data-theme="light"] .card .card-text { color: #1f2937; }
+
+    /* Enhanced card text contrast */
+    [data-theme="dark"] .card-title {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .card-text {
+      color: #f3f4f6 !important;
+    }
+
+    [data-theme="light"] .card-title {
+      color: #1f2937 !important;
+    }
+
+    [data-theme="light"] .card-text {
+      color: #4b5563 !important;
+    }
+
+    /* Grid Layouts - Bolt AI Style */
+    .grid {
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* Enhanced animations - Bolt AI Style */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    /* Staggered animations for grid items */
+    .grid > * {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .grid > *:nth-child(1) { animation-delay: 0.1s; }
+    .grid > *:nth-child(2) { animation-delay: 0.2s; }
+    .grid > *:nth-child(3) { animation-delay: 0.3s; }
+    .grid > *:nth-child(4) { animation-delay: 0.4s; }
+    .grid > *:nth-child(5) { animation-delay: 0.5s; }
+    .grid > *:nth-child(6) { animation-delay: 0.6s; }
+    .grid > *:nth-child(7) { animation-delay: 0.7s; }
+    .grid > *:nth-child(8) { animation-delay: 0.8s; }
+    .grid > *:nth-child(9) { animation-delay: 0.9s; }
+
+    /* Modern Roadmap - Bolt AI Style */
+    .roadmap-modern {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .roadmap-timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent-gradient);
+      transform: translateX(-50%);
+      box-shadow: var(--accent-glow);
+      border-radius: 2px;
+    }
+
+    .roadmap-item {
+      position: relative;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .roadmap-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .roadmap-item:nth-child(odd) {
+      text-align: right;
+      padding-right: 4rem;
+    }
+
+    .roadmap-item:nth-child(even) {
+      text-align: left;
+      padding-left: 4rem;
+    }
+
+    .roadmap-marker {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 4px solid var(--bg-primary);
+      box-shadow: var(--accent-glow);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .marker-icon {
+      color: white;
+      font-size: 1rem;
+    }
+
+    .marker-pulse {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      opacity: 0.3;
+      animation: pulse 2s infinite;
+    }
+
+    .marker-pulse.active {
+      animation: pulse 1.5s infinite;
+    }
+
+    .roadmap-item:hover .roadmap-marker {
+      transform: translateX(-50%) scale(1.2);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .roadmap-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+
+    .roadmap-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .roadmap-content:hover::before {
+      transform: scaleX(1);
+    }
+
+    .roadmap-content:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--card-hover-shadow);
+      border-color: var(--accent-primary);
+    }
+
+    .roadmap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .roadmap-date {
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .roadmap-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .roadmap-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .roadmap-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .roadmap-status.completed {
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .roadmap-status.in-progress {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .roadmap-status.upcoming {
+      background: rgba(156, 163, 175, 0.1);
+      color: #6b7280;
+      border: 1px solid rgba(156, 163, 175, 0.2);
+    }
+
+    .roadmap-progress {
+      height: 4px;
+      background: var(--bg-secondary);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.6s ease;
+    }
+
+    .progress-bar.completed {
+      width: 100%;
+      background: linear-gradient(90deg, #16a34a, #22c55e);
+    }
+
+    .progress-bar.in-progress {
+      width: 75%;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    }
+
+    .progress-bar.upcoming {
+      width: 0%;
+      background: linear-gradient(90deg, #6b7280, #9ca3af);
+    }
+
+    /* Enhanced Team Section - Bolt AI Style */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-member {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--card-shadow);
+    }
+
+    .team-member::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .team-member:hover::before {
+      transform: scaleX(1);
+    }
+
+    .team-member:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--card-hover-shadow);
+      border-color: var(--accent-primary);
+    }
+
+    .team-member.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .team-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2rem auto 1.5rem;
+      font-size: 3rem;
+      color: white;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .team-avatar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .team-member:hover .team-avatar::before {
+      left: 100%;
+    }
+
+    /* Enhanced Testimonials - Dark Mode Contrast Fixes */
+    .card .card-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    [data-theme="dark"] .card .card-text {
+      color: #e5e7eb;
+    }
+
+    [data-theme="dark"] .text-muted {
+      color: #d1d5db !important;
+    }
+
+    [data-theme="dark"] .fw-bold {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] h6.fw-bold {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .card-title {
+      color: #ffffff !important;
+    }
+
+    /* Enhanced FAQ Cards - Dark Mode Contrast Fixes */
+    .grid.grid-2 .card .card-title {
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .grid.grid-2 .card .card-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    [data-theme="dark"] .grid.grid-2 .card .card-title {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .grid.grid-2 .card .card-text {
+      color: #e5e7eb !important;
+    }
+
+    /* Enhanced Feature Cards - Better Text Contrast */
+    .grid.grid-3 .card .card-title {
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    .grid.grid-3 .card .card-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    [data-theme="dark"] .grid.grid-3 .card .card-title {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .grid.grid-3 .card .card-text {
+      color: #f3f4f6 !important;
+    }
+
+    [data-theme="light"] .grid.grid-3 .card .card-title { color: #0b1220 !important; }
+    [data-theme="light"] .grid.grid-3 .card .card-text { color: #1f2a3c !important; }
+
+    .team-member:hover .team-avatar {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: var(--accent-glow);
+    }
+
+    .team-info {
+      padding: 0 2rem 2rem;
+      text-align: center;
+    }
+
+    .team-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .team-role {
+      color: var(--accent-primary);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .team-expertise {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-social {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-light);
+    }
+
+    .social-link:hover {
+      background: var(--accent-primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Enhanced Responsive Design - Bolt AI Style */
+    @media (max-width: 1024px) {
+      .container {
+        padding: 0 2rem;
+      }
+      
+      .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+      }
+      
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+      
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar-nav-section {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .navbar-content {
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding: 1rem 0;
+      }
+      
+      .navbar-actions-section {
+        gap: 0.75rem;
+      }
+      
+      .hero {
+        padding: 8rem 0 4rem;
+      }
+      
+      .hero-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .section {
+        padding: 4rem 0;
+      }
+      
+      .section-header {
+        margin-bottom: 3rem;
+      }
+      
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .roadmap::before {
+        left: 2rem;
+      }
+      
+      .roadmap-item:nth-child(odd),
+      .roadmap-item:nth-child(even) {
+        text-align: left;
+        padding-left: 4rem;
+        padding-right: 0;
+      }
+      
+      .roadmap-marker {
+        left: 2rem;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .card {
+        padding: 2rem;
+      }
+      
+      .mobile-menu {
+        display: block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+      
+      .navbar-container {
+        padding: 0 1rem;
+      }
+      
+      .hero-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+      }
+      
+      .hero-subtitle {
+        font-size: 1.125rem;
+      }
+      
+      .section-title {
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .team-avatar {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+      }
+      
+      .roadmap-content {
+        padding: 1.5rem;
+      }
+      
+      .roadmap-item:nth-child(odd),
+      .roadmap-item:nth-child(even) {
+        padding-left: 3rem;
+      }
+      
+      .roadmap-marker {
+        left: 1.5rem;
+      }
+      
+      .roadmap::before {
+        left: 1.5rem;
+      }
+    }
+
+    /* Utility Classes */
+    .text-gradient {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .bg-gradient {
+      background: var(--accent-gradient);
+    }
+
+    .shadow-glow {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Theme Panel */
+    #themePanel {
+      position: fixed;
+      top: 64px;
+      right: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-xl);
+      border-radius: 12px;
+      padding: 1rem;
+      display: none;
+      z-index: 1100;
+      width: 260px;
+    }
+    #themePanel.open { display: block; }
+    .swatches { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .swatch {
+      width: 32px; height: 32px; border-radius: 8px; cursor: pointer;
+      border: 1px solid var(--border-light);
+    }
+    .swatch.bolt { background: linear-gradient(135deg,#3b82f6,#8b5cf6); }
+    .swatch.green { background: linear-gradient(135deg,#22c55e,#10b981); }
+    .swatch.purple { background: linear-gradient(135deg,#a78bfa,#7c3aed); }
+    .panel-row { display:flex; align-items:center; justify-content:space-between; margin: 0.25rem 0; }
+    .panel-title { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.5rem; }
+
+    /* High-contrast and Reduced-motion helpers */
+    body.high-contrast {
+      --text-primary: #0b0f1a;
+      --text-secondary: #111827;
+      --border-light: #94a3b8;
+    }
+    body.reduced-motion * {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Onboarding modal */
+    #onboardingModal {
+      position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 1200;
+      background: rgba(0,0,0,0.4);
+    }
+    #onboardingModal.show { display: flex; }
+    .onboard-card {
+      background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 16px; padding: 1.25rem; width: min(480px, 92vw);
+      box-shadow: var(--shadow-2xl);
+    }
+    .onboard-actions { display:flex; gap:0.5rem; justify-content:flex-end; margin-top: 0.75rem; }
+    
+    /* Enhanced button styles */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-secondary {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-tertiary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Enhanced mobile responsiveness */
+    @media (max-width: 768px) {
+      .theme-toggle {
+        width: 40px;
+        height: 40px;
+        padding: 0.5rem;
+      }
+      
+      .btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+      }
+      
+      .onboard-card {
+        margin: 1rem;
+        padding: 1rem;
+      }
+      
+      .onboard-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Page Progress Bar -->
+  <div id="pageProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);width:0;z-index:1200"></div>
+  <!-- Bootstrap Navbar - Bolt AI Style -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <div class="brand-logo me-2">
+          <img src="image copy.png" alt="ECHO Logo" width="32" height="32">
+        </div>
+        <span class="brand-text">ECHO</span>
+      </a>
+
+      <!-- Mobile Toggle + Theme -->
+      <div class="d-flex align-items-center d-lg-none gap-2">
+        <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle theme">
+          <i class="bi bi-sun-fill"></i>
+        </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#roadmap">Roadmap</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#team">Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+        
+        <!-- Right Side Actions -->
+        <div class="navbar-actions d-none d-lg-flex align-items-center gap-3 ms-lg-3">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <i class="bi bi-sun-fill"></i>
+          </button>
+          <a href="#" class="btn btn-primary">
+            <i class="bi bi-download me-2"></i>
+            Download App
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <!-- Onboarding Modal -->
+  <div id="onboardingModal" aria-label="Welcome to ECHO">
+    <div class="onboard-card">
+      <h3 style="margin-bottom: 0.75rem; color: var(--text-primary);">Welcome to ECHO! 👋</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Your AI-powered hearing health companion.</p>
+      <ul style="color: var(--text-secondary); margin: 0.75rem 0; padding-left: 1.25rem;">
+        <li>Take quick hearing tests anytime</li>
+        <li>Get professional-grade results</li>
+        <li>Track your hearing health journey</li>
+      </ul>
+      <div class="onboard-actions">
+        <button class="btn btn-secondary" data-dismiss="onboard">Skip</button>
+        <button class="btn btn-primary" data-dismiss="onboard">Get Started</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Panel -->
+  <div id="themePanel" aria-label="Theme Panel">
+    <div class="panel-title">Theme</div>
+    <div class="swatches">
+      <div class="swatch bolt" title="Bolt" data-theme-swatch="bolt"></div>
+      <div class="swatch green" title="Green" data-theme-swatch="green"></div>
+      <div class="swatch purple" title="Purple" data-theme-swatch="purple"></div>
+    </div>
+    <div class="panel-title">Accessibility</div>
+    <div class="panel-row">
+      <label for="contrastToggle">High contrast</label>
+      <input type="checkbox" id="contrastToggle" />
+    </div>
+    <div class="panel-row">
+      <label for="motionToggle">Reduced motion</label>
+      <input type="checkbox" id="motionToggle" />
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Test your hearing in <span class="text-gradient">seconds</span> – anytime, anywhere.
+        </h1>
+        <p class="hero-subtitle">
+          Smarter Hearing. Anytime. Anywhere. AI-powered mobile hearing tests that provide professional-grade results from the comfort of your home.
+        </p>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary">▶️ TRY ECHO</a>
+          <a href="#" class="btn btn-secondary">
+            <i class="bi bi-download"></i>
+            Download App
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">About ECHO</h2>
+        <p class="section-subtitle">
+          ECHO is an AI-powered mobile hearing test application that helps users monitor their hearing health from the comfort of their homes.
+          Developed by a passionate student team from PSNA College and backed by T-Hub, we're revolutionizing accessible healthcare through innovative technology.
+        </p>
+      </div>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-cpu-fill"></i>
+          </div>
+          <h3 class="card-title">AI-Powered</h3>
+          <p class="card-text">Advanced machine learning algorithms ensure accurate and reliable hearing assessments.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-phone-fill"></i>
+          </div>
+          <h3 class="card-title">Mobile-First</h3>
+          <p class="card-text">Designed for smartphones with intuitive interfaces and seamless user experience.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-heart-pulse-fill"></i>
+          </div>
+          <h3 class="card-title">Clinically Validated</h3>
+          <p class="card-text">Clinical validation will be soon !!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How ECHO Works Section -->
+  <section class="section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How ECHO Works</h2>
+        <p class="section-subtitle">Smarter hearing. Anytime. Anywhere.</p>
+      </div>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-icon">
+            <img src="HEAR.png" alt="Hearing Test" width="48" height="48">
+          </div>
+          <h3 class="card-title">1. Take a Quick Hearing Test</h3>
+          <p class="card-text">Use our app to play calibrated audio frequencies and answer simple listening questions in a quiet environment.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-robot"></i>
+          </div>
+          <h3 class="card-title">2. AI-Powered Analysis</h3>
+          <p class="card-text">Our AI instantly analyzes your results, comparing them with global hearing health datasets for accurate insights.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-bar-chart-line-fill"></i>
+          </div>
+          <h3 class="card-title">3. Personalized Results & Guidance</h3>
+          <p class="card-text">Get a detailed hearing profile, audiogram chart, and professional recommendations to protect your hearing health.</p>
+        </div>
+      </div>
+      
+
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">
+          Everything you need for comprehensive hearing health monitoring, wrapped in an intuitive and accessible mobile experience.
+        </p>
+      </div>
+      
+      <div class="grid grid-4">
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-robot"></i>
+          </div>
+          <h3 class="card-title">AI-Based Hearing Test</h3>
+          <p class="card-text">Fast and accurate sound-based hearing assessments powered by advanced AI algorithms.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-bar-chart-line-fill"></i>
+          </div>
+          <h3 class="card-title">Audiogram Reports</h3>
+          <p class="card-text">Visual feedback on your hearing performance with detailed charts and analysis.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-chat-dots-fill"></i>
+          </div>
+          <h3 class="card-title">LISA – Smart Hearing Assistant</h3>
+          <p class="card-text">AI chatbot that guides users through tests and answers hearing health questions.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-sliders"></i>
+          </div>
+          <h3 class="card-title">Sound Calibration</h3>
+          <p class="card-text">Custom calibration based on your specific headphone type for accurate results.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-controller"></i>
+          </div>
+          <h3 class="card-title">Game-Based Test</h3>
+          <p class="card-text">Fun and engaging hearing test games that make health monitoring enjoyable.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-clock-history"></i>
+          </div>
+          <h3 class="card-title">Profile History</h3>
+          <p class="card-text">Track your hearing health journey with comprehensive test result history.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-brightness-high"></i>
+          </div>
+          <h3 class="card-title">Dark/Light Mode</h3>
+          <p class="card-text">Optimized viewing experience with accessibility-focused theme options.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-bell-fill"></i>
+          </div>
+          <h3 class="card-title">Smart Notifications</h3>
+          <p class="card-text">Personalized hearing test reminders to maintain consistent health monitoring.</p>
+        </div>
+        
+        <div class="card">
+          <div class="card-icon">
+            <i class="bi bi-universal-access"></i>
+          </div>
+          <h3 class="card-title">Accessibility Options</h3>
+          <p class="card-text">Adjustable font sizes, contrast settings, and inclusive design features.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Roadmap Section - Bolt AI Style -->
+  <section class="section" id="roadmap">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">ECHO Roadmap</h2>
+        <p class="section-subtitle">Our journey to revolutionize hearing health technology</p>
+      </div>
+      
+      <div class="roadmap-modern">
+        <div class="roadmap-timeline">
+          <div class="roadmap-item" data-status="completed">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-rocket-takeoff"></i>
+              </div>
+              <div class="marker-pulse"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q1 2024</div>
+                <div class="roadmap-status completed">
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Completed</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">Project Launch</h3>
+              <p class="roadmap-description">Initial concept development and team formation at PSNA College</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar completed"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-item" data-status="completed">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-handshake"></i>
+              </div>
+              <div class="marker-pulse"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q2 2024</div>
+                <div class="roadmap-status completed">
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Completed</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">T-Hub Partnership</h3>
+              <p class="roadmap-description">Secured backing and mentorship from T-Hub innovation incubator</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar completed"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-item" data-status="in-progress">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-code-slash"></i>
+              </div>
+              <div class="marker-pulse active"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q3 2024</div>
+                <div class="roadmap-status in-progress">
+                  <i class="bi bi-clock-fill"></i>
+                  <span>In Progress</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">MVP Development</h3>
+              <p class="roadmap-description">First working prototype with basic hearing test functionality</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar in-progress"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-item" data-status="upcoming">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-robot"></i>
+              </div>
+              <div class="marker-pulse"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q4 2024</div>
+                <div class="roadmap-status upcoming">
+                  <i class="bi bi-calendar-event"></i>
+                  <span>Upcoming</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">AI Integration</h3>
+              <p class="roadmap-description">Advanced AI algorithms for accurate hearing assessment</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar upcoming"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-item" data-status="upcoming">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <div class="marker-pulse"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q1 2025</div>
+                <div class="roadmap-status upcoming">
+                  <i class="bi bi-calendar-event"></i>
+                  <span>Upcoming</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">Beta Testing</h3>
+              <p class="roadmap-description">Closed beta with select users for feedback and optimization</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar upcoming"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="roadmap-item" data-status="upcoming">
+            <div class="roadmap-marker">
+              <div class="marker-icon">
+                <i class="bi bi-globe"></i>
+              </div>
+              <div class="marker-pulse"></div>
+            </div>
+            <div class="roadmap-content">
+              <div class="roadmap-header">
+                <div class="roadmap-date">Q2 2025</div>
+                <div class="roadmap-status upcoming">
+                  <i class="bi bi-calendar-event"></i>
+                  <span>Upcoming</span>
+                </div>
+              </div>
+              <h3 class="roadmap-title">Public Launch</h3>
+              <p class="roadmap-description">Official release on app stores with full feature set</p>
+              <div class="roadmap-progress">
+                <div class="progress-bar upcoming"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Team Section - Bolt AI Style -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Who We Are</h2>
+        <p class="section-subtitle">Meet the passionate team behind ECHO</p>
+      </div>
+      
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="bi bi-trophy-fill"></i>
+            </div>
+            <!-- Replace with actual photo: <img src="path/to/photo.jpg" alt="TL"> -->
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">TL</h3>
+            <p class="team-role">Team Leader</p>
+            <p class="team-expertise">Project Management, Strategy</p>
+            <div class="team-social">
+              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="bi bi-code-slash"></i>
+            </div>
+            <!-- Replace with actual photo: <img src="path/to/photo.jpg" alt="Dharshan"> -->
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Dharshan</h3>
+            <p class="team-role">Full Stack Developer</p>
+            <p class="team-expertise">Web & App Development</p>
+            <div class="team-social">
+              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="bi bi-palette-fill"></i>
+            </div>
+            <!-- Replace with actual photo: <img src="path/to/photo.jpg" alt="Adharshini"> -->
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Adharshini</h3>
+            <p class="team-role">UI/UX Designer</p>
+            <p class="team-expertise">Design, Prototyping</p>
+            <div class="team-social">
+              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="bi bi-dribbble"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="bi bi-database-fill"></i>
+            </div>
+            <!-- Replace with actual photo: <img src="path/to/photo.jpg" alt="Vikash"> -->
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Vikash</h3>
+            <p class="team-role">Backend Developer</p>
+            <p class="team-expertise">Database & API Integration</p>
+            <div class="team-social">
+              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="team-member">
+          <div class="team-avatar">
+            <div class="avatar-placeholder">
+              <i class="bi bi-bug-fill"></i>
+            </div>
+            <!-- Replace with actual photo: <img src="path/to/photo.jpg" alt="Archana"> -->
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Archana</h3>
+            <p class="team-role">Tester</p>
+            <p class="team-expertise">QA, Debugging</p>
+            <div class="team-social">
+              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What People Say</h2>
+        <p class="section-subtitle">Hear from our users and partners</p>
+      </div>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <div class="card-text">
+            "ECHO has revolutionized how I monitor my hearing health. The AI-powered tests are incredibly accurate and convenient."
+          </div>
+          <div class="mt-3">
+            <div class="text-warning mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="https://cdn-icons-png.flaticon.com/512/194/194938.png" alt="Profile" class="rounded-circle me-3" width="40" height="40">
+              <div>
+                <h6 class="fw-bold mb-0">Dr. Sarah Johnson</h6>
+                <small class="text-muted">Audiologist, City Medical Center</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-text">
+            "The gamified approach makes hearing tests actually enjoyable. This app is a game-changer for preventive healthcare."
+          </div>
+          <div class="mt-3">
+            <div class="text-warning mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="https://cdn-icons-png.flaticon.com/512/194/194936.png" alt="Profile" class="rounded-circle me-3" width="40" height="40">
+              <div>
+                <h6 class="fw-bold mb-0">T-Hub Innovation Team</h6>
+                <small class="text-muted">Technology Incubator</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-text">
+            "As someone with hearing concerns, ECHO gives me peace of mind with regular, reliable testing at home."
+          </div>
+          <div class="mt-3">
+            <div class="text-warning mb-2">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star"></i>
+            </div>
+            <div class="d-flex align-items-center">
+              <img src="https://cdn-icons-png.flaticon.com/512/194/194935.png" alt="Profile" class="rounded-circle me-3" width="40" height="40">
+              <div>
+                <h6 class="fw-bold mb-0">Michael Chen</h6>
+                <small class="text-muted">Early Adopter</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about ECHO</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 class="card-title">How does ECHO work?</h3>
+          <p class="card-text">ECHO uses a scientifically designed hearing test with different sound frequencies and volumes to measure your hearing ability accurately.</p>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Do I need special headphones?</h3>
+          <p class="card-text">While you can take the test with regular headphones, for the most accurate results we recommend using high-quality, over-ear headphones.</p>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Can I trust the results?</h3>
+          <p class="card-text">Yes! ECHO uses proven audiology methods, but keep in mind it's not a replacement for a professional audiologist examination.</p>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Is ECHO free to use?</h3>
+          <p class="card-text">Yes, ECHO is completely free for all users.</p>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">How often should I test my hearing?</h3>
+          <p class="card-text">We recommend taking the test every 6–12 months, or whenever you feel changes in your hearing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">Have questions or feedback? We'd love to hear from you!</p>
+      </div>
+      
+      <div class="grid grid-2">
+        <div>
+          <h3 class="card-title mb-3">Contact Information</h3>
+          <p class="mb-3"><a href="mailto:hello@echoapp.com" class="text-decoration-none">hello@echoapp.com</a></p>
+          
+          <h3 class="card-title mb-3">Follow Us</h3>
+          <div class="d-flex gap-3 mb-4">
+            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-instagram"></i></a>
+          </div>
+          
+          <h3 class="card-title mb-3">Newsletter Signup</h3>
+          <p class="mb-3">Stay updated with ECHO's latest features and hearing health tips.</p>
+          <div class="d-flex gap-2">
+            <input type="email" placeholder="Enter your email" class="form-control">
+            <button class="btn btn-primary">Subscribe</button>
+          </div>
+        </div>
+        
+        <div class="card">
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" class="form-control" placeholder="Your name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" class="form-control" placeholder="Your message..." rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border-light);">
+    <div class="container">
+      <div class="grid grid-4">
+        <div>
+          <h3 class="fw-bold mb-3">ECHO</h3>
+          <p class="mb-2">Smarter Hearing. Anytime. Anywhere.</p>
+          <p>Making hearing health accessible through AI-powered mobile technology.</p>
+        </div>
+        
+        <div>
+          <h5 class="fw-bold mb-3">Product</h5>
+          <ul class="list-unstyled">
+            <li><a href="#features" class="text-decoration-none">Features</a></li>
+            <li><a href="#how-it-works" class="text-decoration-none">How it Works</a></li>
+            <li><a href="#pricing" class="text-decoration-none">Pricing</a></li>
+            <li><a href="#faq" class="text-decoration-none">FAQ</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h5 class="fw-bold mb-3">Company</h5>
+          <ul class="list-unstyled">
+            <li><a href="#about" class="text-decoration-none">About</a></li>
+            <li><a href="#team" class="text-decoration-none">Team</a></li>
+            <li><a href="#blog" class="text-decoration-none">Blog</a></li>
+            <li><a href="#careers" class="text-decoration-none">Careers</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h5 class="fw-bold mb-3">Support</h5>
+          <ul class="list-unstyled">
+            <li><a href="#support" class="text-decoration-none">Support</a></li>
+            <li><a href="#privacy" class="text-decoration-none">Privacy Policy</a></li>
+            <li><a href="#terms" class="text-decoration-none">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <hr class="my-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <p class="mb-0">&copy; 2024 ECHO. All rights reserved.</p>
+        <p class="mb-0">Built with ❤️ by students for better hearing health.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap CSS for forms -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Page progress bar
+    (function(){
+      const bar = document.getElementById('pageProgress');
+      if (!bar) return;
+      const update = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = Math.max(0, Math.min(100, (scrollTop / docHeight) * 100));
+        bar.style.width = pct + '%';
+      };
+      window.addEventListener('scroll', update, {passive:true});
+      window.addEventListener('resize', update);
+      update();
+    })();
+    // Enhanced Theme Toggle with smooth transitions (desktop + mobile)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const body = document.body;
+    const icon = (themeToggle || themeToggleMobile)?.querySelector('i') || document.createElement('i');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', savedTheme);
+    updateIcon(savedTheme);
+    
+    function attachThemeHandler(btn){
+      if(!btn) return;
+      btn.addEventListener('click', () => {
+        btn.style.transform = 'scale(0.95)';
+        setTimeout(() => { btn.style.transform = ''; }, 150);
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateIcon(newTheme);
+      });
+    }
+    attachThemeHandler(themeToggle);
+    attachThemeHandler(themeToggleMobile);
+    
+    function updateIcon(theme) {
+      const iconClass = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
+      // Update both desktop and mobile theme toggles
+      document.querySelectorAll('#themeToggle i, #themeToggleMobile i').forEach(icon => {
+        if (icon) icon.className = iconClass;
+      });
+    }
+    
+    // Enhanced Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.15,
+      rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Add staggered animation for grid items
+          if (entry.target.classList.contains('grid')) {
+            const items = entry.target.children;
+            Array.from(items).forEach((item, index) => {
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+              }, index * 100);
+            });
+          }
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.roadmap-item, .team-member, .section-header, .grid').forEach(el => {
+      observer.observe(el);
+    });
+    
+    // Enhanced smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          // Add active state to nav links
+          document.querySelectorAll('.navbar-nav a').forEach(link => {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          const navbarHeight = document.querySelector('.navbar').offsetHeight;
+          const targetPosition = target.offsetTop - navbarHeight - 20;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Enhanced navbar background on scroll with smooth transitions
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const navbar = document.querySelector('.navbar');
+          const scrollY = window.scrollY;
+          
+          if (scrollY > 50) {
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    
+    // Add parallax effect to hero background
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero');
+      if (hero) {
+        const rate = scrolled * -0.3;
+        hero.style.transform = `translateY(${rate}px)`;
+      }
+    });
+    
+    // Add hover effects to cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+    
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenuBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+    
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.mobile-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('menu-open');
+        document.body.classList.remove('menu-open');
+      }
+    });
+    
+    // Add loading animation
+    window.addEventListener('load', () => {
+      document.body.classList.add('loaded');
+      
+      // Animate hero elements
+      const heroTitle = document.querySelector('.hero-title');
+      const heroSubtitle = document.querySelector('.hero-subtitle');
+      const heroActions = document.querySelector('.hero-actions');
+      
+      if (heroTitle) heroTitle.style.animation = 'fadeInUp 1s ease-out';
+      if (heroSubtitle) heroSubtitle.style.animation = 'fadeInUp 1s ease-out 0.2s both';
+      if (heroActions) heroActions.style.animation = 'fadeInUp 1s ease-out 0.4s both';
+    });
+    
+    // Theme panel logic
+    (function(){
+      const panel = document.getElementById('themePanel');
+      const btnDesktop = document.getElementById('themeToggle');
+      const btnMobile = document.getElementById('themeToggleMobile');
+      let longPressTimer;
+      function bindLongPress(el){
+        if(!el) return;
+        el.addEventListener('mousedown', ()=> longPressTimer = setTimeout(()=>panel.classList.add('open'), 600));
+        el.addEventListener('touchstart', ()=> longPressTimer = setTimeout(()=>panel.classList.add('open'), 600));
+        ['mouseup','mouseleave','touchend','touchcancel'].forEach(evt=> el.addEventListener(evt, ()=> clearTimeout(longPressTimer)));
+      }
+      bindLongPress(btnDesktop);
+      bindLongPress(btnMobile);
+      document.addEventListener('click', (e)=>{ if(!e.target.closest('#themePanel') && !e.target.closest('#themeToggle') && !e.target.closest('#themeToggleMobile')) panel.classList.remove('open'); });
+      document.getElementById('contrastToggle')?.addEventListener('change', (e)=>{ document.body.classList.toggle('high-contrast', e.target.checked); });
+      document.getElementById('motionToggle')?.addEventListener('change', (e)=>{ document.body.classList.toggle('reduced-motion', e.target.checked); });
+      document.querySelectorAll('[data-theme-swatch]')?.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const palette = btn.getAttribute('data-theme-swatch');
+          if (palette === 'bolt') {
+            document.documentElement.style.setProperty('--accent-primary','#3b82f6');
+            document.documentElement.style.setProperty('--accent-secondary','#8b5cf6');
+            document.documentElement.style.setProperty('--accent-gradient','linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)');
+          } else if (palette === 'green') {
+            document.documentElement.style.setProperty('--accent-primary','#22c55e');
+            document.documentElement.style.setProperty('--accent-secondary','#10b981');
+            document.documentElement.style.setProperty('--accent-gradient','linear-gradient(135deg, #22c55e 0%, #10b981 100%)');
+          } else if (palette === 'purple') {
+            document.documentElement.style.setProperty('--accent-primary','#a78bfa');
+            document.documentElement.style.setProperty('--accent-secondary','#7c3aed');
+            document.documentElement.style.setProperty('--accent-gradient','linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%)');
+          }
+          panel.classList.remove('open');
+        });
+      });
+    })();
+
+    // Onboarding modal logic
+    (function(){
+      const modal = document.getElementById('onboardingModal');
+      const seen = localStorage.getItem('echo_onboarded');
+      if (!seen && modal) {
+        setTimeout(() => modal.classList.add('show'), 800);
+      }
+      document.addEventListener('click', (e) => {
+        if (e.target.matches('[data-dismiss="onboard"]')) {
+          modal?.classList.remove('show');
+          localStorage.setItem('echo_onboarded', '1');
+        }
+      });
+    })();
+
+    // Add scroll-triggered animations
+    const scrollAnimations = () => {
+      const elements = document.querySelectorAll('.card, .team-member, .roadmap-item');
+      elements.forEach((el, index) => {
+        const rect = el.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isVisible && !el.classList.contains('animated')) {
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            el.classList.add('animated');
+          }, index * 50);
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', scrollAnimations);
+    window.addEventListener('load', scrollAnimations);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
