@@ -83,6 +83,43 @@
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
       padding-top: 80px;
+      position: relative;
+    }
+
+    /* Bolt AI-style dark mode background */
+    [data-theme="dark"] body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+      z-index: -1;
+      animation: boltBackground 20s ease-in-out infinite;
+    }
+
+    [data-theme="dark"] body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        repeating-linear-gradient(
+          45deg,
+          transparent 0px,
+          transparent 2px,
+          rgba(96, 165, 250, 0.03) 2px,
+          rgba(96, 165, 250, 0.03) 4px
+        );
+      z-index: -1;
+      animation: boltGrid 15s linear infinite;
     }
 
     body.loaded {
@@ -398,22 +435,26 @@
       color: white;
     }
 
+    /* Enhanced Button Animations - Bolt AI Style */
     .btn-primary {
       background: var(--accent-gradient);
       border: none;
       color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.95rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+      transform: translateY(0);
+      letter-spacing: 0.5px;
     }
 
     .btn-primary::before {
@@ -423,24 +464,148 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-      transition: left 0.3s ease;
+      background: linear-gradient(90deg, #1d4ed8, #3b82f6, #8b5cf6);
+      transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 1;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
     }
 
     .btn-primary:hover::before {
       left: 0;
     }
 
+    .btn-primary:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4), 0 0 20px rgba(59, 130, 246, 0.2);
+      letter-spacing: 1px;
+    }
+
+    .btn-primary:active {
+      transform: translateY(-2px) scale(1.02);
+      transition: all 0.1s ease;
     }
 
     .btn-primary span,
     .btn-primary i {
       position: relative;
+      z-index: 3;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover span {
+      transform: translateX(5px);
+    }
+
+    .btn-primary:hover i {
+      transform: rotate(360deg) scale(1.2);
+    }
+
+    /* Enhanced Secondary Button */
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(0);
+      letter-spacing: 0.5px;
+    }
+
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent-gradient);
+      transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .btn-secondary::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 2;
+    }
+
+    .btn-secondary:hover::before {
+      left: 0;
+    }
+
+    .btn-secondary:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15), 0 0 20px rgba(59, 130, 246, 0.1);
+      border-color: var(--accent-primary);
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .btn-secondary:hover span,
+    .btn-secondary:hover i {
+      color: white;
+    }
+
+    .btn-secondary:active {
+      transform: translateY(-2px) scale(1.02);
+      transition: all 0.1s ease;
+    }
+
+    .btn-secondary span,
+    .btn-secondary i {
+      position: relative;
+      z-index: 3;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover span {
+      transform: translateX(5px);
+    }
+
+    .btn-secondary:hover i {
+      transform: rotate(360deg) scale(1.2);
     }
 
     /* Mobile Responsiveness */
@@ -823,6 +988,86 @@
       transform: translateY(-1px);
     }
 
+    /* Ensure all form inputs are clickable */
+    input, textarea, select, button {
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .form-control {
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    /* Specific fixes for contact form inputs */
+    #contact input,
+    #contact textarea,
+    #contact button,
+    #newsletter-email,
+    #newsletter-submit {
+      position: relative;
+      z-index: 100;
+      pointer-events: auto;
+      cursor: text;
+    }
+
+    #contact input:focus,
+    #contact textarea:focus,
+    #newsletter-email:focus {
+      outline: 2px solid var(--accent-primary);
+      outline-offset: 2px;
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Visual indicator for clickable inputs */
+    #contact input:hover,
+    #contact textarea:hover,
+    #newsletter-email:hover {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 5px rgba(59, 130, 246, 0.2);
+    }
+
+    /* Ensure no overlapping elements block inputs */
+    .card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card form {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Fix for any background elements that might block inputs */
+    .section {
+      position: relative;
+      z-index: 1;
+    }
+
+    #contact {
+      position: relative;
+      z-index: 10;
+    }
+
+    #contact .grid {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Override any potential pointer-events issues */
+    #contact * {
+      pointer-events: auto;
+    }
+
+    #contact input,
+    #contact textarea,
+    #contact button {
+      pointer-events: auto !important;
+    }
+
     .btn-secondary {
       background: var(--bg-card);
       color: var(--text-primary);
@@ -837,14 +1082,211 @@
       box-shadow: var(--shadow-lg);
     }
 
-    /* Hero Section - Bolt AI Style */
+    /* Full Website Video Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+      z-index: -1;
+    }
+
+    /* Video Background Container */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .video-background video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      opacity: 0.15;
+      filter: blur(1px);
+    }
+
+    /* Video Overlay */
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* Hero Section - Mobile First Design with Video Background */
     .hero {
-      padding: 10rem 0 6rem;
+      padding: 6rem 0 3rem;
       text-align: center;
-      background: var(--bg-primary);
+      background: transparent;
       position: relative;
       overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
     }
+
+    /* Hero Video Background */
+    .hero-video-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .hero-video-background video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      filter: blur(2px);
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+      z-index: 1;
+    }
+
+    /* Animated Right Side Object */
+    .hero-animated-object {
+      position: absolute;
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 200px;
+      height: 200px;
+      z-index: 3;
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .hero-animated-object {
+        display: block;
+      }
+    }
+
+    .floating-ear {
+      width: 100%;
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: earFloat 6s ease-in-out infinite;
+      box-shadow: var(--accent-glow);
+      position: relative;
+    }
+
+    .floating-ear::before {
+      content: '';
+      position: absolute;
+      width: 80%;
+      height: 80%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: earPulse 2s ease-in-out infinite;
+    }
+
+    .ear-icon {
+      font-size: 4rem;
+      color: white;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Animated Background Elements */
+    .hero-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* Hero Video Background */
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .hero-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
+      z-index: 1;
+    }
+
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-primary);
+      border-radius: 50%;
+      animation: particleFloat 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 10s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 7s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 9s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 6s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 8s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 2s; animation-duration: 10s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 4s; animation-duration: 7s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 1s; animation-duration: 9s; }
 
     .hero::before {
       content: '';
@@ -853,10 +1295,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
       pointer-events: none;
       animation: float 6s ease-in-out infinite;
+      z-index: 2;
     }
 
     .hero::after {
@@ -866,17 +1309,18 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.05) 50%, transparent 70%);
+      background: linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.08) 50%, transparent 70%);
       background-size: 200% 200%;
       animation: shimmer 3s ease-in-out infinite;
       pointer-events: none;
+      z-index: 2;
     }
 
     .hero-content {
       max-width: 900px;
       margin: 0 auto;
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
 
     .hero-title {
@@ -909,11 +1353,13 @@
       justify-content: center;
       flex-wrap: wrap;
       animation: fadeInUp 1s ease-out 0.4s both;
+      position: relative;
+      z-index: 3;
     }
 
-    /* Section Styles - Bolt AI Style */
+    /* Section Styles - Mobile First Design */
     .section {
-      padding: 6rem 0;
+      padding: 3rem 0;
       position: relative;
     }
 
@@ -921,9 +1367,15 @@
       background: var(--bg-secondary);
     }
 
+    /* Remove gap between hero and about */
+    #about {
+      padding-top: 0;
+      margin-top: -2rem;
+    }
+
     .section-header {
       text-align: center;
-      margin-bottom: 5rem;
+      margin-bottom: 2rem;
       animation: fadeInUp 0.8s ease-out;
     }
 
@@ -944,7 +1396,7 @@
       line-height: 1.6;
     }
 
-    /* Cards - Bolt AI Style */
+    /* Legacy Card Styles - Only for remaining sections that still use cards */
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border-light);
@@ -1129,6 +1581,1240 @@
       }
     }
 
+    @keyframes backgroundFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg) scale(1);
+      }
+      25% {
+        transform: translateY(-15px) rotate(0.5deg) scale(1.02);
+      }
+      50% {
+        transform: translateY(-25px) rotate(1deg) scale(1.05);
+      }
+      75% {
+        transform: translateY(-10px) rotate(0.8deg) scale(1.03);
+      }
+    }
+
+    @keyframes backgroundShimmer {
+      0% {
+        background-position: -400% 0;
+      }
+      100% {
+        background-position: 400% 0;
+      }
+    }
+
+    @keyframes earFloat {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
+    @keyframes earPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.2;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.4;
+      }
+    }
+
+    @keyframes particleFloat {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* New animations for floating features */
+    @keyframes featureFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes featureGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+      50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+    }
+
+    /* New animations for 3D timeline */
+    @keyframes timelineSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes markerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes progressPulse {
+      0%, 100% { 
+        box-shadow: 
+          0 4px 16px rgba(59, 130, 246, 0.4),
+          inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      }
+      50% { 
+        box-shadow: 
+          0 8px 32px rgba(59, 130, 246, 0.8),
+          inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    @keyframes roadFlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    @keyframes boltBackground {
+      0%, 100% { 
+        background: 
+          radial-gradient(circle at 20% 80%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+      }
+      25% { 
+        background: 
+          radial-gradient(circle at 80% 20%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 60% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+      }
+      50% { 
+        background: 
+          radial-gradient(circle at 40% 40%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 60% 60%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+      }
+      75% { 
+        background: 
+          radial-gradient(circle at 60% 60%, rgba(96, 165, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #111111 50%, #0a0a0a 75%, #000000 100%);
+      }
+    }
+
+    @keyframes boltGrid {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(20px, 20px); }
+    }
+
+    @keyframes waveFlow {
+      0%, 100% { 
+        background: linear-gradient(90deg, 
+          #60a5fa 0%, 
+          #a78bfa 25%, 
+          #f59e0b 50%, 
+          #ef4444 75%, 
+          #8b5cf6 100%);
+      }
+      50% { 
+        background: linear-gradient(90deg, 
+          #8b5cf6 0%, 
+          #ef4444 25%, 
+          #f59e0b 50%, 
+          #a78bfa 75%, 
+          #60a5fa 100%);
+      }
+    }
+
+    @keyframes earPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    }
+
+    @keyframes soundWave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(1.5); }
+    }
+
+    @keyframes dnaRotate {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+
+    @keyframes dnaRungs {
+      0%, 100% { 
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 80px,
+          rgba(96, 165, 250, 0.3) 80px,
+          rgba(96, 165, 250, 0.3) 85px,
+          transparent 85px,
+          transparent 165px
+        );
+      }
+      50% { 
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 80px,
+          rgba(167, 139, 250, 0.4) 80px,
+          rgba(167, 139, 250, 0.4) 85px,
+          transparent 85px,
+          transparent 165px
+        );
+      }
+    }
+
+    @keyframes orbPulse {
+      0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.4; 
+      }
+      50% { 
+        transform: translate(-50%, -50%) scale(1.2); 
+        opacity: 0.8; 
+      }
+    }
+
+    @keyframes ringRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Enhanced Text Visibility - Fix for 'y' character and better contrast */
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 2rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      animation: fadeInUp 1s ease-out;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero-subtitle {
+      font-size: 1.375rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      animation: fadeInUp 1s ease-out 0.2s both;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Enhanced dark mode text visibility */
+    [data-theme="dark"] .hero-subtitle {
+      color: #e2e8f0;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="light"] .hero-subtitle {
+      color: #1f2937;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* New Features Section - Circular Design */
+    .features-circular {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      position: relative;
+    }
+
+    .feature-circle {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .feature-circle:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    .circle-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      z-index: 1;
+      filter: blur(20px);
+    }
+
+    .feature-circle:hover .circle-glow {
+      opacity: 0.3;
+    }
+
+    .circle-icon {
+      width: 120px;
+      height: 120px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      font-size: 3rem;
+      color: white;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+      box-shadow: var(--accent-glow);
+      border: 4px solid var(--bg-primary);
+    }
+
+    .feature-circle:hover .circle-icon {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+    }
+
+    .circle-content {
+      position: relative;
+      z-index: 2;
+      max-width: 280px;
+    }
+
+    .circle-content h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .circle-content p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .circle-highlight {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.1);
+      color: var(--accent-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .feature-circle:hover .circle-highlight {
+      background: var(--accent-primary);
+      color: white;
+    }
+
+    /* Future Features Suggestions Section */
+    .features-suggestions {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      position: relative;
+    }
+
+    .suggestion-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-light);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .suggestion-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-primary);
+    }
+
+    .suggestion-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: white;
+      transition: all 0.4s ease;
+      box-shadow: var(--accent-glow);
+    }
+
+    .suggestion-card:hover .suggestion-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+    }
+
+    .suggestion-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .suggestion-content p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .suggestion-status {
+      display: inline-block;
+      padding: 0.375rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .suggestion-card:nth-child(1) .suggestion-status {
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .suggestion-card:nth-child(2) .suggestion-status {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .suggestion-card:nth-child(3) .suggestion-status {
+      background: rgba(168, 85, 247, 0.1);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .suggestion-card:nth-child(4) .suggestion-status {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .suggestion-card:nth-child(5) .suggestion-status {
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .suggestion-card:nth-child(6) .suggestion-status {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .suggestion-card:nth-child(7) .suggestion-status {
+      background: rgba(168, 85, 247, 0.1);
+      color: #a855f7;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .suggestion-card:nth-child(8) .suggestion-status {
+      background: rgba(245, 158, 11, 0.1);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+      transform: translateY(-2px);
+    }
+
+    /* Feature circle positioning for visual interest */
+    .feature-circle-1 { transform: translateY(0px); }
+    .feature-circle-2 { transform: translateY(10px); }
+    .feature-circle-3 { transform: translateY(-5px); }
+    .feature-circle-4 { transform: translateY(15px); }
+    .feature-circle-5 { transform: translateY(-10px); }
+    .feature-circle-6 { transform: translateY(5px); }
+    .feature-circle-7 { transform: translateY(-15px); }
+
+    .feature-circle:hover {
+      transform: translateY(-10px) scale(1.05);
+    }
+
+    /* Apply animations to feature circles */
+    .feature-circle {
+      animation: featureFloat 6s ease-in-out infinite;
+    }
+
+    .feature-circle:nth-child(even) {
+      animation-delay: 1s;
+    }
+
+    .feature-circle:nth-child(3n) {
+      animation-delay: 2s;
+    }
+
+    /* Modern FAQ Accordion Styles */
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-primary);
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: var(--bg-card);
+    }
+
+    .faq-question:hover {
+      background: var(--bg-secondary);
+    }
+
+    .faq-question h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .faq-toggle {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+      background: var(--accent-secondary);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bg-secondary);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer p {
+      padding: 0 2rem 2rem;
+      margin: 0;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    /* Enhanced dark mode text visibility for FAQ */
+    [data-theme="dark"] .faq-question h3 {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .faq-answer p {
+      color: #e5e7eb !important;
+    }
+
+    [data-theme="dark"] .faq-item {
+      background: #000000 !important;
+      border-color: #333333 !important;
+    }
+
+    [data-theme="dark"] .faq-answer {
+      background: #111111 !important;
+    }
+
+    [data-theme="light"] .faq-question h3 {
+      color: #1f2937;
+    }
+
+    [data-theme="light"] .faq-answer p {
+      color: #4b5563;
+    }
+
+    /* Fix dark mode data cards - Black background with white text */
+    [data-theme="dark"] .card {
+      background: #000000 !important;
+      border-color: #333333 !important;
+    }
+
+    [data-theme="dark"] .card .card-title {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .card .card-text {
+      color: #e5e7eb !important;
+    }
+
+    [data-theme="dark"] .card .text-muted {
+      color: #d1d5db !important;
+    }
+
+    [data-theme="dark"] .card .fw-bold {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .card h6.fw-bold {
+      color: #ffffff !important;
+    }
+
+    /* Fix footer dark mode text */
+    [data-theme="dark"] footer {
+      background: var(--bg-secondary) !important;
+    }
+
+    [data-theme="dark"] footer h3,
+    [data-theme="dark"] footer h5 {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] footer p,
+    [data-theme="dark"] footer li {
+      color: #e5e7eb !important;
+    }
+
+    [data-theme="dark"] footer a {
+      color: #60a5fa !important;
+    }
+
+    [data-theme="dark"] footer a:hover {
+      color: #93c5fd !important;
+    }
+
+    [data-theme="dark"] footer hr {
+      border-color: #374151 !important;
+    }
+
+    /* Dark mode text visibility for new features and roadmap */
+    [data-theme="dark"] .step-content h3,
+    [data-theme="dark"] .step-content p,
+    [data-theme="dark"] .item-content h3,
+    [data-theme="dark"] .item-content p {
+      color: #000000;
+    }
+
+    [data-theme="dark"] .step-content,
+    [data-theme="dark"] .timeline-item {
+      background: var(--bg-card);
+    }
+
+    /* New About ECHO Section - No Data Cards */
+    .about-echo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .about-item {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.6s ease;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .about-item:hover::before {
+      transform: scaleX(1);
+    }
+
+    .about-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--accent-primary);
+    }
+
+    .about-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: var(--accent-glow);
+      transition: all 0.3s ease;
+    }
+
+    .about-item:hover .about-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .about-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .about-content p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* New How ECHO Works Section - No Data Cards */
+    .how-echo-works {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .work-step {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .work-step::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.6s ease;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .work-step:hover::before {
+      transform: scaleX(1);
+    }
+
+    .work-step:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--accent-primary);
+    }
+
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: var(--accent-glow);
+      transition: all 0.3s ease;
+    }
+
+    .work-step:hover .step-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    }
+
+    .step-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .step-content p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* Apply animations to About and How It Works sections */
+    .about-item,
+    .work-step {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .about-item:nth-child(2) { animation-delay: 0.2s; }
+    .about-item:nth-child(3) { animation-delay: 0.4s; }
+    .about-item:nth-child(4) { animation-delay: 0.6s; }
+
+    .work-step:nth-child(2) { animation-delay: 0.2s; }
+    .work-step:nth-child(3) { animation-delay: 0.4s; }
+
+    /* Fix dark mode for new sections - Black background with white text */
+    [data-theme="dark"] .feature-circle {
+      background: transparent !important;
+    }
+
+    [data-theme="dark"] .circle-content h3,
+    [data-theme="dark"] .circle-content p {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .suggestion-card {
+      background: #000000 !important;
+      border-color: #333333 !important;
+    }
+
+    [data-theme="dark"] .suggestion-content h3,
+    [data-theme="dark"] .suggestion-content p {
+      color: #ffffff !important;
+    }
+
+    /* Dark mode for curved road */
+    [data-theme="dark"] .road-path {
+      background: linear-gradient(90deg, 
+        #1a202c 0%, 
+        #2d3748 20%, 
+        #4a5568 40%, 
+        #718096 60%, 
+        #a0aec0 80%, 
+        #cbd5e0 100%);
+      box-shadow: 
+        inset 0 4px 8px rgba(0, 0, 0, 0.5),
+        0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    [data-theme="dark"] .milestone-content {
+      background: #0a0a0a !important;
+      border-color: #1e293b !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="dark"] .milestone-content h3,
+    [data-theme="dark"] .milestone-content p {
+      color: #ffffff !important;
+    }
+
+    /* Dark mode for classic timeline */
+    [data-theme="dark"] .timeline-line {
+      background: linear-gradient(to bottom, 
+        #3b82f6 0%, 
+        #8b5cf6 25%, 
+        #f59e0b 50%, 
+        #ef4444 75%, 
+        #a855f7 100%);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+    }
+
+    [data-theme="dark"] .timeline-content {
+      background: #0a0a0a !important;
+      border-color: #1e293b !important;
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        0 0 40px rgba(59, 130, 246, 0.2);
+    }
+
+    [data-theme="dark"] .timeline-content h3,
+    [data-theme="dark"] .timeline-content p {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .feature-highlight {
+      background: rgba(59, 130, 246, 0.2) !important;
+      color: #60a5fa !important;
+      border-color: rgba(59, 130, 246, 0.4) !important;
+    }
+
+    [data-theme="dark"] .timeline-item-3d .phase-content-3d {
+      background: #000000 !important;
+      border-color: #333333 !important;
+    }
+
+    [data-theme="dark"] .timeline-item-3d .phase-content-3d h3,
+    [data-theme="dark"] .timeline-item-3d .phase-content-3d p {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .timeline-item-3d .phase-date-3d {
+      color: #60a5fa !important;
+      background: rgba(59, 130, 246, 0.2) !important;
+      border-color: rgba(59, 130, 246, 0.4) !important;
+    }
+
+    [data-theme="dark"] .timeline-item-3d .progress-text {
+      color: #d1d5db !important;
+    }
+
+    [data-theme="dark"] .about-item,
+    [data-theme="dark"] .work-step {
+      background: #000000 !important;
+      border-color: #333333 !important;
+    }
+
+    [data-theme="dark"] .about-item h3,
+    [data-theme="dark"] .about-item p,
+    [data-theme="dark"] .work-step h3,
+    [data-theme="dark"] .work-step p {
+      color: #ffffff !important;
+    }
+
+    /* Awesome Footer Styles */
+    .awesome-footer {
+      position: relative;
+      background: var(--bg-secondary);
+      margin-top: 4rem;
+      overflow: hidden;
+    }
+
+    .footer-waves {
+      position: relative;
+      height: 120px;
+      background: var(--accent-gradient);
+      overflow: hidden;
+    }
+
+    .footer-waves svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      color: var(--bg-secondary);
+    }
+
+    .footer-content {
+      background: var(--bg-secondary);
+      padding: 4rem 0 2rem;
+      position: relative;
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      text-align: left;
+    }
+
+    .brand-logo-footer {
+      width: 60px;
+      height: 60px;
+      background: var(--accent-gradient);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      color: white;
+      box-shadow: var(--accent-glow);
+    }
+
+    .footer-brand h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-tagline {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .brand-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-link {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.25rem;
+      position: relative;
+      z-index: 10;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .social-link:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .link-group h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .link-group ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .link-group li {
+      margin-bottom: 0.75rem;
+    }
+
+    .link-group a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .link-group a:hover {
+      color: var(--accent-primary);
+      transform: translateX(5px);
+    }
+
+    .footer-newsletter h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .footer-newsletter p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    .newsletter-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .newsletter-btn {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .newsletter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .footer-info p {
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .theme-toggle-footer {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .theme-toggle-footer:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+
+    .back-to-top {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border-radius: 12px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
     /* Staggered animations for grid items */
     .grid > * {
       opacity: 0;
@@ -1145,130 +2831,117 @@
     .grid > *:nth-child(8) { animation-delay: 0.8s; }
     .grid > *:nth-child(9) { animation-delay: 0.9s; }
 
-    /* Modern Roadmap - Bolt AI Style */
-    .roadmap-modern {
-      position: relative;
+    /* Classic Timeline Roadmap Design - Always Visible Content */
+    .roadmap-classic {
       max-width: 1200px;
       margin: 0 auto;
-    }
-
-    .roadmap-timeline {
+      padding: 0;
       position: relative;
-      padding: 2rem 0;
     }
 
-    .roadmap-timeline::before {
-      content: '';
+    /* Remove extra padding from roadmap section */
+    #roadmap.section {
+      padding: 0;
+    }
+
+    .timeline-container {
+      position: relative;
+      padding: 0;
+    }
+
+    .timeline-line {
       position: absolute;
       left: 50%;
       top: 0;
       bottom: 0;
-      width: 3px;
-      background: var(--accent-gradient);
+      width: 4px;
+      background: linear-gradient(to bottom, 
+        #60a5fa 0%, 
+        #a78bfa 25%, 
+        #f59e0b 50%, 
+        #ef4444 75%, 
+        #8b5cf6 100%);
       transform: translateX(-50%);
-      box-shadow: var(--accent-glow);
       border-radius: 2px;
+      box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
     }
 
-    .roadmap-item {
+    .timeline-item {
       position: relative;
       margin-bottom: 4rem;
       opacity: 0;
-      transform: translateY(40px);
       transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .roadmap-item.visible {
+    .timeline-item.visible {
       opacity: 1;
-      transform: translateY(0);
     }
 
-    .roadmap-item:nth-child(odd) {
+    .timeline-item:nth-child(even) {
+      padding-left: 50%;
+      padding-right: 2rem;
+    }
+
+    .timeline-item:nth-child(odd) {
+      padding-right: 50%;
+      padding-left: 2rem;
       text-align: right;
-      padding-right: 4rem;
     }
 
-    .roadmap-item:nth-child(even) {
-      text-align: left;
-      padding-left: 4rem;
-    }
-
-    .roadmap-marker {
+    .timeline-marker {
       position: absolute;
       left: 50%;
       top: 0;
-      width: 32px;
-      height: 32px;
-      background: var(--accent-gradient);
-      border-radius: 50%;
       transform: translateX(-50%);
-      border: 4px solid var(--bg-primary);
-      box-shadow: var(--accent-glow);
-      transition: all 0.3s ease;
+      width: 60px;
+      height: 60px;
+      background: var(--bg-primary);
+      border: 4px solid var(--accent-primary);
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 
+        0 4px 16px rgba(96, 165, 250, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2);
+      transition: all 0.4s ease;
       z-index: 2;
     }
 
-    .marker-icon {
-      color: white;
-      font-size: 1rem;
-    }
-
-    .marker-pulse {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--accent-gradient);
-      opacity: 0.3;
-      animation: pulse 2s infinite;
-    }
-
-    .marker-pulse.active {
-      animation: pulse 1.5s infinite;
-    }
-
-    .roadmap-item:hover .roadmap-marker {
+    .timeline-item:hover .timeline-marker {
       transform: translateX(-50%) scale(1.2);
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+      box-shadow: 
+        0 8px 32px rgba(96, 165, 250, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
     }
 
-    .roadmap-content {
+    .marker-icon {
+      font-size: 1.5rem;
+      color: var(--accent-primary);
+      transition: all 0.4s ease;
+    }
+
+    .timeline-item:hover .marker-icon {
+      transform: scale(1.1);
+    }
+
+    .timeline-content {
       background: var(--bg-card);
-      border: 1px solid var(--border-light);
+      border: 2px solid var(--border-light);
       border-radius: 16px;
       padding: 2rem;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.4s ease;
       position: relative;
-      box-shadow: var(--card-shadow);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
     }
 
-    .roadmap-content::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--accent-gradient);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .roadmap-content:hover::before {
-      transform: scaleX(1);
-    }
-
-    .roadmap-content:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--card-hover-shadow);
+    .timeline-item:hover .timeline-content {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-xl);
       border-color: var(--accent-primary);
     }
 
-    .roadmap-header {
+    .content-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1277,89 +2950,271 @@
       gap: 1rem;
     }
 
-    .roadmap-date {
-      font-size: 0.875rem;
-      color: var(--accent-primary);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 0.5rem 1rem;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 20px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-    }
-
-    .roadmap-title {
+    .content-header h3 {
       font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
       color: var(--text-primary);
-      line-height: 1.3;
+      margin: 0;
     }
 
-    .roadmap-description {
+    .content-date {
+      background: var(--accent-gradient);
+      color: white;
+      padding: 0.375rem 1rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .timeline-content p {
       color: var(--text-secondary);
       font-size: 0.95rem;
       line-height: 1.6;
       margin-bottom: 1.5rem;
     }
 
-    .roadmap-status {
-      display: inline-flex;
+    .content-progress {
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .roadmap-status.completed {
-      background: rgba(34, 197, 94, 0.1);
-      color: #16a34a;
-      border: 1px solid rgba(34, 197, 94, 0.2);
-    }
-
-    .roadmap-status.in-progress {
-      background: rgba(59, 130, 246, 0.1);
-      color: #3b82f6;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-    }
-
-    .roadmap-status.upcoming {
-      background: rgba(156, 163, 175, 0.1);
-      color: #6b7280;
-      border: 1px solid rgba(156, 163, 175, 0.2);
-    }
-
-    .roadmap-progress {
-      height: 4px;
-      background: var(--bg-secondary);
-      border-radius: 2px;
-      overflow: hidden;
+      gap: 1rem;
     }
 
     .progress-bar {
-      height: 100%;
-      border-radius: 2px;
-      transition: width 0.6s ease;
+      flex: 1;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
     }
 
-    .progress-bar.completed {
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    .progress-bar.completed::before {
       width: 100%;
       background: linear-gradient(90deg, #16a34a, #22c55e);
     }
 
-    .progress-bar.in-progress {
+    .progress-bar.in-progress::before {
       width: 75%;
       background: linear-gradient(90deg, #3b82f6, #60a5fa);
     }
 
-    .progress-bar.upcoming {
+    .progress-bar.upcoming::before {
       width: 0%;
       background: linear-gradient(90deg, #6b7280, #9ca3af);
+    }
+
+    .progress-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Status-specific marker colors */
+    .timeline-marker.completed {
+      border-color: #16a34a;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+
+    .timeline-marker.completed .marker-icon {
+      color: white;
+    }
+
+    .timeline-marker.in-progress {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      animation: progressPulse 2s ease-in-out infinite;
+    }
+
+    .timeline-marker.in-progress .marker-icon {
+      color: white;
+    }
+
+    .timeline-marker.upcoming {
+      border-color: #6b7280;
+      background: linear-gradient(135deg, #6b7280, #9ca3af);
+    }
+
+    .timeline-marker.upcoming .marker-icon {
+      color: white;
+    }
+    }
+
+    .marker-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+      box-shadow: var(--accent-glow);
+    }
+
+    .phase-marker.completed .marker-ring {
+      border-color: #16a34a;
+    }
+
+    .phase-marker.completed .marker-icon {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+    }
+
+    .phase-marker.in-progress .marker-ring {
+      border-color: #3b82f6;
+      animation: progressRing 2s ease-in-out infinite;
+    }
+
+    .phase-marker.in-progress .marker-icon {
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    }
+
+    .phase-marker.upcoming .marker-ring {
+      border-color: #6b7280;
+    }
+
+    .phase-marker.upcoming .marker-icon {
+      background: linear-gradient(135deg, #6b7280, #9ca3af);
+    }
+
+    @keyframes progressRing {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .phase-content-3d {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-light);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.4s ease;
+      box-shadow: var(--shadow-sm);
+      max-width: 400px;
+    }
+
+    .phase-content-3d::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transition: transform 0.6s ease;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .timeline-item-3d:hover .phase-content-3d::before {
+      transform: scaleX(1);
+    }
+
+    .timeline-item-3d:hover .phase-content-3d {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+      border-color: var(--accent-primary);
+    }
+
+    .phase-header-3d {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .phase-header-3d h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .phase-date-3d {
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      border-radius: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .phase-content-3d p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .phase-progress-3d {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar.completed {
+      background: linear-gradient(90deg, #16a34a, #22c55e);
+    }
+
+    .progress-bar.in-progress {
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      width: 75%;
+    }
+
+    .progress-bar.upcoming {
+      background: #6b7280;
+      width: 0%;
+    }
+
+    .progress-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Apply animations to 3D timeline */
+    .timeline-item-3d {
+      animation: timelineSlideIn 0.8s ease-out forwards;
+    }
+
+    .timeline-item-3d:nth-child(2) { animation-delay: 0.2s; }
+    .timeline-item-3d:nth-child(3) { animation-delay: 0.4s; }
+    .timeline-item-3d:nth-child(4) { animation-delay: 0.6s; }
+    .timeline-item-3d:nth-child(5) { animation-delay: 0.8s; }
+    .timeline-item-3d:nth-child(6) { animation-delay: 1s; }
+
+    .phase-marker:hover .marker-ring {
+      animation: markerPulse 1s ease-in-out infinite;
     }
 
     /* Enhanced Team Section - Bolt AI Style */
@@ -1680,8 +3535,44 @@
         padding-right: 0;
       }
       
+      .roadmap-item:nth-child(odd),
+      .roadmap-item:nth-child(even) {
+        text-align: left;
+        padding-left: 4rem;
+        padding-right: 0;
+      }
+      
       .roadmap-marker {
         left: 2rem;
+      }
+
+      /* Mobile responsive roadmap */
+      .roadmap-flow::before {
+        left: 1.5rem;
+      }
+
+      .roadmap-phase {
+        gap: 1rem;
+      }
+
+      .phase-number {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+      }
+
+      .phase-content {
+        padding: 1.5rem;
+      }
+
+      .phase-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .phase-header h3 {
+        font-size: 1.25rem;
       }
       
       .team-grid {
@@ -1695,6 +3586,143 @@
       
       .mobile-menu {
         display: block;
+      }
+
+      /* Mobile responsive features */
+      .feature-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .feature-content h3 {
+        font-size: 2rem;
+        text-align: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      /* Mobile responsive new hexagonal features */
+      .hex-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .hex-content {
+        width: 180px;
+        height: 180px;
+        padding: 1.5rem;
+      }
+
+      .hex-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+      }
+
+      /* Mobile responsive new spiral roadmap */
+      .spiral-container {
+        height: 600px;
+      }
+
+      .spiral-path {
+        width: 400px;
+        height: 400px;
+      }
+
+      .milestone {
+        width: 250px;
+      }
+
+      .milestone[data-milestone="1"] { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+      .milestone[data-milestone="2"] { transform: rotate(60deg) translateX(180px) rotate(-60deg); }
+      .milestone[data-milestone="3"] { transform: rotate(120deg) translateX(180px) rotate(-120deg); }
+      .milestone[data-milestone="4"] { transform: rotate(180deg) translateX(180px) rotate(-180deg); }
+      .milestone[data-milestone="5"] { transform: rotate(240deg) translateX(180px) rotate(-240deg); }
+      .milestone[data-milestone="6"] { transform: rotate(300deg) translateX(180px) rotate(-300deg); }
+
+      .milestone-dot {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+      }
+
+      .milestone-content {
+        padding: 1rem;
+      }
+
+      /* Mobile responsive awesome footer */
+      .footer-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .footer-brand {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .brand-logo-footer {
+        order: -1;
+        margin-bottom: 0.5rem;
+      }
+
+      .social-links {
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .footer-actions {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .theme-toggle-footer {
+        width: 44px;
+        height: 44px;
+        font-size: 1.125rem;
+      }
+
+      .back-to-top {
+        width: 44px;
+        height: 44px;
+        font-size: 1.125rem;
+      }
+
+      .faq-container {
+        padding: 0 1rem;
+      }
+
+      .faq-question {
+        padding: 1.5rem;
+      }
+
+      .faq-question h3 {
+        font-size: 1rem;
+      }
+
+      .btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -1862,10 +3890,200 @@
       .onboard-actions {
         flex-direction: column;
       }
+
+      /* Mobile Responsiveness for New Features */
+      .features-circular {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 1rem 0;
+      }
+
+      .feature-circle {
+        padding: 1rem;
+      }
+
+      .circle-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .circle-content {
+        max-width: 250px;
+      }
+
+      /* Mobile Responsiveness for New Roadmap */
+      .roadmap-3d {
+        padding: 2rem 0;
+      }
+
+      .timeline-line {
+        left: 2rem;
+      }
+
+      /* Mobile Responsiveness for Classic Timeline */
+      .roadmap-classic {
+        padding: 2rem 0;
+      }
+
+      .timeline-container {
+        padding: 1rem 0;
+      }
+
+      .timeline-item {
+        margin-bottom: 3rem;
+      }
+
+      .timeline-item:nth-child(even),
+      .timeline-item:nth-child(odd) {
+        padding-left: 3rem;
+        padding-right: 1rem;
+        text-align: left;
+      }
+
+      .timeline-line {
+        left: 1.5rem;
+        transform: none;
+      }
+
+      .timeline-marker {
+        left: 1.5rem;
+        transform: none;
+        width: 50px;
+        height: 50px;
+      }
+
+      .marker-icon {
+        font-size: 1.25rem;
+      }
+
+      .timeline-content {
+        padding: 1.5rem;
+      }
+
+      .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .content-header h3 {
+        font-size: 1.1rem;
+      }
+
+      .timeline-content p {
+        font-size: 0.9rem;
+      }
+
+      .phase-content-3d {
+        max-width: none;
+      }
+
+      /* Mobile Responsiveness for New About & How It Works */
+      .about-echo,
+      .how-echo-works {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .about-item,
+      .work-step {
+        padding: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .about-icon,
+      .step-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+        margin: 0 auto;
+      }
+
+      .about-content,
+      .step-content {
+        text-align: center;
+        max-width: 100%;
+      }
+
+      .about-content h3,
+      .step-content h3 {
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .about-content p,
+      .step-content p {
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      /* Mobile Responsiveness for Future Features */
+      .features-suggestions {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem 0;
+      }
+
+      .suggestion-card {
+        padding: 1.5rem;
+      }
+
+      .suggestion-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .feature-circle {
+        padding: 0.5rem;
+      }
+
+      .circle-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .circle-content h3 {
+        font-size: 1.25rem;
+      }
+
+      .timeline-item-3d {
+        margin-bottom: 3rem;
+      }
+
+      .phase-content-3d {
+        padding: 1.5rem;
+      }
+
+      .about-item,
+      .work-step {
+        padding: 1.25rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Video Background for All Pages -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+      <!-- Fallback for browsers that don't support video -->
+    </video>
+  </div>
+  
+  <!-- Video Overlay -->
+  <div class="video-overlay"></div>
+
   <!-- Page Progress Bar -->
   <div id="pageProgress" style="position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);width:0;z-index:1200"></div>
   <!-- Bootstrap Navbar - Bolt AI Style -->
@@ -1961,6 +4179,34 @@
   </div>
 
   <section class="hero">
+    <!-- Animated Background Elements -->
+    <div class="hero-background">
+      <!-- Video Background -->
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="hero-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+    </div>
+    
+    <!-- Animated Right Side Object -->
+    <div class="hero-animated-object">
+      <div class="floating-ear">
+        <i class="bi bi-ear-fill ear-icon"></i>
+      </div>
+    </div>
+    
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-title mb-5">
@@ -1970,13 +4216,6 @@
         <p class="hero-subtitle">
           Smarter Hearing. Anytime. Anywhere. AI-powered mobile hearing tests that provide professional-grade results from the comfort of your home.
         </p>
-        <div class="hero-actions">
-          <a href="#" class="btn btn-primary"> TRY ECHO</a>
-          <a href="#" class="btn btn-secondary">
-            <i class="bi bi-download"></i>
-            Download App
-          </a>
-        </div>
       </div>
     </div>
   </section>
@@ -1992,29 +4231,35 @@
         </p>
       </div>
       
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-icon">
+      <div class="about-echo">
+        <div class="about-item about-ai">
+          <div class="about-icon">
             <i class="bi bi-cpu-fill"></i>
           </div>
-          <h3 class="card-title">AI-Powered</h3>
-          <p class="card-text">Advanced machine learning algorithms ensure accurate and reliable hearing assessments.</p>
+          <div class="about-content">
+            <h3>AI-Powered</h3>
+            <p>Advanced machine learning algorithms ensure accurate and reliable hearing assessments.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="about-item about-mobile">
+          <div class="about-icon">
             <i class="bi bi-phone-fill"></i>
           </div>
-          <h3 class="card-title">Mobile-First</h3>
-          <p class="card-text">Designed for smartphones with intuitive interfaces and seamless user experience.</p>
+          <div class="about-content">
+            <h3>Mobile-First</h3>
+            <p>Designed for smartphones with intuitive interfaces and seamless user experience.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="about-item about-clinical">
+          <div class="about-icon">
             <i class="bi bi-heart-pulse-fill"></i>
           </div>
-          <h3 class="card-title">Clinically Validated</h3>
-          <p class="card-text">Clinical validation will be soon !!</p>
+          <div class="about-content">
+            <h3>Clinically Validated</h3>
+            <p>Clinical validation will be soon !!</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2028,29 +4273,35 @@
         <p class="section-subtitle">Smarter hearing. Anytime. Anywhere.</p>
       </div>
       
-      <div class="grid grid-3">
-        <div class="card">
-          <div class="card-icon">
+      <div class="how-echo-works">
+        <div class="work-step work-step-1">
+          <div class="step-icon">
             <img src="HEAR.png" alt="Hearing Test" width="48" height="48">
           </div>
-          <h3 class="card-title">1. Take a Quick Hearing Test</h3>
-          <p class="card-text">Use our app to play calibrated audio frequencies and answer simple listening questions in a quiet environment.</p>
+          <div class="step-content">
+            <h3>1. Take a Quick Hearing Test</h3>
+            <p>Use our app to play calibrated audio frequencies and answer simple listening questions in a quiet environment.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="work-step work-step-2">
+          <div class="step-icon">
             <i class="bi bi-robot"></i>
           </div>
-          <h3 class="card-title">2. AI-Powered Analysis</h3>
-          <p class="card-text">Our AI instantly analyzes your results, comparing them with global hearing health datasets for accurate insights.</p>
+          <div class="step-content">
+            <h3>2. AI-Powered Analysis</h3>
+            <p>Our AI instantly analyzes your results, comparing them with global hearing health datasets for accurate insights.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="work-step work-step-3">
+          <div class="step-icon">
             <i class="bi bi-bar-chart-line-fill"></i>
           </div>
-          <h3 class="card-title">3. Personalized Results & Guidance</h3>
-          <p class="card-text">Get a detailed hearing profile, audiogram chart, and professional recommendations to protect your hearing health.</p>
+          <div class="step-content">
+            <h3>3. Personalized Results & Guidance</h3>
+            <p>Get a detailed hearing profile, audiogram chart, and professional recommendations to protect your hearing health.</p>
+          </div>
         </div>
       </div>
       
@@ -2058,7 +4309,7 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- Completely New Features Section - Floating Cards Design -->
   <section class="section" id="features">
     <div class="container">
       <div class="section-header">
@@ -2068,83 +4319,95 @@
         </p>
       </div>
       
-      <div class="grid grid-4">
-        <div class="card">
-          <div class="card-icon">
+      <div class="features-circular">
+        <div class="feature-circle feature-circle-1" data-feature="ai">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-robot"></i>
           </div>
-          <h3 class="card-title">AI-Based Hearing Test</h3>
-          <p class="card-text">Fast and accurate sound-based hearing assessments powered by advanced AI algorithms.</p>
+          <div class="circle-content">
+            <h3>AI-Powered Tests</h3>
+            <p>Advanced ML algorithms for accurate hearing assessments with professional-grade precision</p>
+            <div class="circle-highlight">Real-time Analysis</div>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="feature-circle feature-circle-2" data-feature="audiogram">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-bar-chart-line-fill"></i>
           </div>
-          <h3 class="card-title">Audiogram Reports</h3>
-          <p class="card-text">Visual feedback on your hearing performance with detailed charts and analysis.</p>
+          <div class="circle-content">
+            <h3>Smart Reports</h3>
+            <p>Visual feedback with detailed charts and AI-powered analysis for comprehensive insights</p>
+            <div class="circle-highlight">Visual Charts</div>
+          </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="feature-circle feature-circle-3" data-feature="lisa">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-chat-dots-fill"></i>
           </div>
-          <h3 class="card-title">LISA – Smart Hearing Assistant</h3>
-          <p class="card-text">AI chatbot that guides users through tests and answers hearing health questions.</p>
+          <div class="circle-content">
+            <h3>LISA Assistant</h3>
+            <p>AI chatbot that guides users through tests and answers hearing health questions</p>
+            <div class="circle-highlight">24/7 Support</div>
+        </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
-            <i class="bi bi-sliders"></i>
-          </div>
-          <h3 class="card-title">Sound Calibration</h3>
-          <p class="card-text">Custom calibration based on your specific headphone type for accurate results.</p>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">
+        <div class="feature-circle feature-circle-4" data-feature="gaming">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-controller"></i>
           </div>
-          <h3 class="card-title">Game-Based Test</h3>
-          <p class="card-text">Fun and engaging hearing test games that make health monitoring enjoyable.</p>
+          <div class="circle-content">
+            <h3>Game-Based Tests</h3>
+            <p>Fun and engaging hearing test games that make health monitoring enjoyable</p>
+            <div class="circle-highlight">Interactive Games</div>
+        </div>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
+        <div class="feature-circle feature-circle-5" data-feature="calibration">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
+            <i class="bi bi-sliders"></i>
+          </div>
+          <div class="circle-content">
+            <h3>Smart Calibration</h3>
+            <p>Custom audio calibration for your specific headphones and audio setup</p>
+            <div class="circle-highlight">Custom Setup</div>
+          </div>
+        </div>
+        
+        <div class="feature-circle feature-circle-6" data-feature="history">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-clock-history"></i>
           </div>
-          <h3 class="card-title">Profile History</h3>
-          <p class="card-text">Track your hearing health journey with comprehensive test result history.</p>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">
-            <i class="bi bi-brightness-high"></i>
+          <div class="circle-content">
+            <h3>Health Tracking</h3>
+            <p>Comprehensive history and progress monitoring with detailed analytics</p>
+            <div class="circle-highlight">Progress Analytics</div>
           </div>
-          <h3 class="card-title">Dark/Light Mode</h3>
-          <p class="card-text">Optimized viewing experience with accessibility-focused theme options.</p>
         </div>
         
-        <div class="card">
-          <div class="card-icon">
-            <i class="bi bi-bell-fill"></i>
-          </div>
-          <h3 class="card-title">Smart Notifications</h3>
-          <p class="card-text">Personalized hearing test reminders to maintain consistent health monitoring.</p>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">
+        <div class="feature-circle feature-circle-7" data-feature="accessibility">
+          <div class="circle-glow"></div>
+          <div class="circle-icon">
             <i class="bi bi-universal-access"></i>
           </div>
-          <h3 class="card-title">Accessibility Options</h3>
-          <p class="card-text">Adjustable font sizes, contrast settings, and inclusive design features.</p>
+          <div class="circle-content">
+            <h3>Accessibility First</h3>
+            <p>Inclusive design with customizable options for all users</p>
+            <div class="circle-highlight">Inclusive Design</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Enhanced Roadmap Section - Bolt AI Style -->
+  <!-- Classic Timeline Roadmap Design -->
   <section class="section" id="roadmap">
     <div class="container">
       <div class="section-header">
@@ -2152,142 +4415,120 @@
         <p class="section-subtitle">Our journey to revolutionize hearing health technology</p>
       </div>
       
-      <div class="roadmap-modern">
-        <div class="roadmap-timeline">
-          <div class="roadmap-item" data-status="completed">
-            <div class="roadmap-marker">
+      <div class="roadmap-classic">
+        <div class="timeline-container">
+          <div class="timeline-line"></div>
+          
+          <div class="timeline-item timeline-item-1" data-phase="1">
+            <div class="timeline-marker completed">
               <div class="marker-icon">
                 <i class="bi bi-rocket-takeoff"></i>
               </div>
-              <div class="marker-pulse"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q1 2024</div>
-                <div class="roadmap-status completed">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Completed</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>Project Launch</h3>
+                <span class="content-date">Q1 2024</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">Project Launch</h3>
-              <p class="roadmap-description">Initial concept development and team formation at PSNA College</p>
-              <div class="roadmap-progress">
+              <p>Initial concept development and team formation at PSNA College. Laying the foundation for innovative hearing health technology.</p>
+              <div class="content-progress">
                 <div class="progress-bar completed"></div>
+                <span class="progress-text">100% Complete</span>
               </div>
             </div>
           </div>
           
-          <div class="roadmap-item" data-status="completed">
-            <div class="roadmap-marker">
+          <div class="timeline-item timeline-item-2" data-phase="2">
+            <div class="timeline-marker completed">
               <div class="marker-icon">
                 <i class="bi bi-handshake"></i>
               </div>
-              <div class="marker-pulse"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q2 2024</div>
-                <div class="roadmap-status completed">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Completed</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>T-Hub Partnership</h3>
+                <span class="content-date">Q2 2024</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">T-Hub Partnership</h3>
-              <p class="roadmap-description">Secured backing and mentorship from T-Hub innovation incubator</p>
-              <div class="roadmap-progress">
+              <p>Secured backing and mentorship from T-Hub innovation incubator. Gaining industry expertise and support.</p>
+              <div class="content-progress">
                 <div class="progress-bar completed"></div>
+                <span class="progress-text">100% Complete</span>
               </div>
             </div>
           </div>
           
-          <div class="roadmap-item" data-status="in-progress">
-            <div class="roadmap-marker">
+          <div class="timeline-item timeline-item-3" data-phase="3">
+            <div class="timeline-marker in-progress">
               <div class="marker-icon">
                 <i class="bi bi-code-slash"></i>
               </div>
-              <div class="marker-pulse active"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q3 2024</div>
-                <div class="roadmap-status in-progress">
-                  <i class="bi bi-clock-fill"></i>
-                  <span>In Progress</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>MVP Development</h3>
+                <span class="content-date">Q3 2024</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">MVP Development</h3>
-              <p class="roadmap-description">First working prototype with basic hearing test functionality</p>
-              <div class="roadmap-progress">
+              <p>First working prototype with basic hearing test functionality. Core features development and testing.</p>
+              <div class="content-progress">
                 <div class="progress-bar in-progress"></div>
+                <span class="progress-text">75% Complete</span>
               </div>
             </div>
           </div>
           
-          <div class="roadmap-item" data-status="upcoming">
-            <div class="roadmap-marker">
+          <div class="timeline-item timeline-item-4" data-phase="4">
+            <div class="timeline-marker upcoming">
               <div class="marker-icon">
                 <i class="bi bi-robot"></i>
               </div>
-              <div class="marker-pulse"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q4 2024</div>
-                <div class="roadmap-status upcoming">
-                  <i class="bi bi-calendar-event"></i>
-                  <span>Upcoming</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>AI Integration</h3>
+                <span class="content-date">Q4 2024</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">AI Integration</h3>
-              <p class="roadmap-description">Advanced AI algorithms for accurate hearing assessment</p>
-              <div class="roadmap-progress">
+              <p>Advanced AI algorithms for accurate hearing assessment. Machine learning model training and optimization.</p>
+              <div class="content-progress">
                 <div class="progress-bar upcoming"></div>
+                <span class="progress-text">0% Complete</span>
               </div>
             </div>
           </div>
           
-          <div class="roadmap-item" data-status="upcoming">
-            <div class="roadmap-marker">
+          <div class="timeline-item timeline-item-5" data-phase="5">
+            <div class="timeline-marker upcoming">
               <div class="marker-icon">
                 <i class="bi bi-people-fill"></i>
               </div>
-              <div class="marker-pulse"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q1 2025</div>
-                <div class="roadmap-status upcoming">
-                  <i class="bi bi-calendar-event"></i>
-                  <span>Upcoming</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>Beta Testing</h3>
+                <span class="content-date">Q1 2025</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">Beta Testing</h3>
-              <p class="roadmap-description">Closed beta with select users for feedback and optimization</p>
-              <div class="roadmap-progress">
+              <p>Closed beta with select users for feedback and optimization. Real-world testing and user experience refinement.</p>
+              <div class="content-progress">
                 <div class="progress-bar upcoming"></div>
+                <span class="progress-text">0% Complete</span>
               </div>
             </div>
           </div>
           
-          <div class="roadmap-item" data-status="upcoming">
-            <div class="roadmap-marker">
+          <div class="timeline-item timeline-item-6" data-phase="6">
+            <div class="timeline-marker upcoming">
               <div class="marker-icon">
                 <i class="bi bi-globe"></i>
               </div>
-              <div class="marker-pulse"></div>
             </div>
-            <div class="roadmap-content">
-              <div class="roadmap-header">
-                <div class="roadmap-date">Q2 2025</div>
-                <div class="roadmap-status upcoming">
-                  <i class="bi bi-calendar-event"></i>
-                  <span>Upcoming</span>
+            <div class="timeline-content">
+              <div class="content-header">
+                <h3>Public Launch</h3>
+                <span class="content-date">Q2 2025</span>
                 </div>
-              </div>
-              <h3 class="roadmap-title">Public Launch</h3>
-              <p class="roadmap-description">Official release on app stores with full feature set</p>
-              <div class="roadmap-progress">
+              <p>Official release on app stores with full feature set. Making hearing health accessible to everyone worldwide.</p>
+              <div class="content-progress">
                 <div class="progress-bar upcoming"></div>
+                <span class="progress-text">0% Complete</span>
               </div>
             </div>
           </div>
@@ -2315,12 +4556,10 @@
           <div class="team-info">
             <h3 class="team-name">NAREN A</h3>
             <p class="team-role">Product Lead</p>
-            <p class="team-expertise"> Tech Lead , Sound Engineer , Business/Marketing
-
-</p>
+            <p class="team-expertise">Tech Lead , Sound Engineer , Business/Marketing</p>
             <div class="team-social">
-              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+              <a href="http://www.linkedin.com/in/a-naren1308" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/ntbnaren7" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
             </div>
           </div>
         </div>
@@ -2336,12 +4575,10 @@
           <div class="team-info">
             <h3 class="team-name">DHARSHAN VS</h3>
             <p class="team-role">Full Stack Developer</p>
-            <p class="team-expertise">App Developer , Web Developer , Business/Marketing
-
-</p>
+            <p class="team-expertise">App Developer , Web Developer , Business/Marketing</p>
             <div class="team-social">
-              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+              <a href="https://www.linkedin.com/in/dharshan-varadharaj-54a020297?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/Dharshan-vs" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
             </div>
           </div>
         </div>
@@ -2356,11 +4593,10 @@
           <div class="team-info">
             <h3 class="team-name">ADHARSHINI K</h3>
             <p class="team-role">Game Developer</p>
-            <p class="team-expertise">Unity , Sound Engineer
-</p>
+            <p class="team-expertise">Unity , Sound Engineer</p>
             <div class="team-social">
-              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+              <a href="https://www.linkedin.com/in/adharshini-kumaresan-18483a298/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              <a href="https://github.com/Adharshini-Kumar" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
             </div>
           </div>
         </div>
@@ -2376,10 +4612,10 @@
             <h3 class="team-name">VIKASH JD</h3>
             <p class="team-role">Backend Developer</p>
             <p class="team-expertise"> ML Engineer , Business/Marketing Lead</p>
-            <div class="team-social">
-              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
-            </div>
+                          <div class="team-social">
+                <a href="https://www.linkedin.com/in/vikash-j-d-it-student-b6499529a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/vikash-JD" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+              </div>
           </div>
         </div>
         
@@ -2395,10 +4631,10 @@
             <p class="team-role">Game Developer </p>
             <p class="team-expertise"> Unity , ML Engineer
 </p>
-            <div class="team-social">
-              <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
-              <a href="#" class="social-link"><i class="bi bi-github"></i></a>
-            </div>
+                          <div class="team-social">
+                <a href="https://www.linkedin.com/in/archanaa-muthuraj-46ba38298/" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+                <a href="https://github.com/Archanaa-2301" class="social-link" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+              </div>
           </div>
         </div>
       </div>
@@ -2483,7 +4719,7 @@
     </div>
   </section>
 
-  <!-- FAQ Section -->
+  <!-- Modern FAQ Section - Interactive Accordion -->
   <section class="section" id="faq">
     <div class="container">
       <div class="section-header">
@@ -2491,30 +4727,177 @@
         <p class="section-subtitle">Everything you need to know about ECHO</p>
       </div>
       
-      <div class="grid grid-2">
-        <div class="card">
-          <h3 class="card-title">How does ECHO work?</h3>
-          <p class="card-text">ECHO uses a scientifically designed hearing test with different sound frequencies and volumes to measure your hearing ability accurately.</p>
+      <div class="faq-container">
+        <div class="faq-item" data-faq="1">
+          <div class="faq-question">
+            <h3>How does ECHO work?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>ECHO uses a scientifically designed hearing test with different sound frequencies and volumes to measure your hearing ability accurately. Our AI algorithms analyze your responses and provide professional-grade results in seconds.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <h3 class="card-title">Do I need special headphones?</h3>
-          <p class="card-text">While you can take the test with regular headphones, for the most accurate results we recommend using high-quality, over-ear headphones.</p>
+        <div class="faq-item" data-faq="2">
+          <div class="faq-question">
+            <h3>Do I need special headphones?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>While you can take the test with regular headphones, for the most accurate results we recommend using high-quality, over-ear headphones. Our smart calibration system adapts to your specific headphone type.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <h3 class="card-title">Can I trust the results?</h3>
-          <p class="card-text">Yes! ECHO uses proven audiology methods, but keep in mind it's not a replacement for a professional audiologist examination.</p>
+        <div class="faq-item" data-faq="3">
+          <div class="faq-question">
+            <h3>Can I trust the results?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>Yes! ECHO uses proven audiology methods and AI-powered analysis, but keep in mind it's not a replacement for a professional audiologist examination. We recommend regular professional check-ups.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <h3 class="card-title">Is ECHO free to use?</h3>
-          <p class="card-text">Yes, ECHO is completely free for all users.</p>
+        <div class="faq-item" data-faq="4">
+          <div class="faq-question">
+            <h3>Is ECHO free to use?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>Yes, ECHO is completely free for all users. We believe hearing health should be accessible to everyone, which is why we've made our core features available at no cost.</p>
+          </div>
         </div>
         
-        <div class="card">
-          <h3 class="card-title">How often should I test my hearing?</h3>
-          <p class="card-text">We recommend taking the test every 6–12 months, or whenever you feel changes in your hearing.</p>
+        <div class="faq-item" data-faq="5">
+          <div class="faq-question">
+            <h3>How often should I test my hearing?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>We recommend taking the test every 6–12 months, or whenever you feel changes in your hearing. Regular monitoring helps track your hearing health journey and detect any early changes.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item" data-faq="6">
+          <div class="faq-question">
+            <h3>What makes ECHO different from other apps?</h3>
+            <div class="faq-toggle">
+              <i class="bi bi-plus-lg"></i>
+            </div>
+          </div>
+          <div class="faq-answer">
+            <p>ECHO combines AI-powered accuracy with gamified testing, making hearing health monitoring engaging and accessible. Our clinical-grade algorithms and user-friendly interface set us apart from traditional hearing test apps.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Features Suggestions -->
+  <section class="section" id="future-features">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Future Features</h2>
+        <p class="section-subtitle">Exciting features we're planning to enhance your hearing health journey</p>
+      </div>
+      
+      <div class="features-suggestions">
+        <div class="suggestion-card suggestion-card-1">
+          <div class="suggestion-icon">
+            <i class="bi bi-ear"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Real-time Hearing Monitoring</h3>
+            <p>Continuous background monitoring to detect hearing changes throughout the day and provide instant alerts.</p>
+            <div class="suggestion-status">Coming Soon</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-2">
+          <div class="suggestion-icon">
+            <i class="bi bi-translate"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Multi-language Support</h3>
+            <p>Support for 20+ languages to make hearing health accessible to users worldwide.</p>
+            <div class="suggestion-status">In Development</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-3">
+          <div class="suggestion-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Family Health Dashboard</h3>
+            <p>Monitor hearing health for entire families with shared insights and recommendations.</p>
+            <div class="suggestion-status">Planned</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-4">
+          <div class="suggestion-icon">
+            <i class="bi bi-watch"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Smartwatch Integration</h3>
+            <p>Seamless integration with Apple Watch and Android Wear for on-the-go hearing monitoring.</p>
+            <div class="suggestion-status">In Research</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-5">
+          <div class="suggestion-icon">
+            <i class="bi bi-graph-up"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Advanced Analytics</h3>
+            <p>Detailed hearing health trends, patterns, and personalized recommendations based on your data.</p>
+            <div class="suggestion-status">Coming Soon</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-6">
+          <div class="suggestion-icon">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>HIPAA Compliance</h3>
+            <p>Enterprise-grade security and HIPAA compliance for healthcare providers and institutions.</p>
+            <div class="suggestion-status">In Development</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-7">
+          <div class="suggestion-icon">
+            <i class="bi bi-phone"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>Telehealth Integration</h3>
+            <p>Direct connection to audiologists and hearing specialists for professional consultations.</p>
+            <div class="suggestion-status">Planned</div>
+          </div>
+        </div>
+        
+        <div class="suggestion-card suggestion-card-8">
+          <div class="suggestion-icon">
+            <i class="bi bi-lightbulb"></i>
+          </div>
+          <div class="suggestion-content">
+            <h3>AI Hearing Coach</h3>
+            <p>Personalized AI coach that provides daily tips, exercises, and motivation for better hearing health.</p>
+            <div class="suggestion-status">In Research</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2535,84 +4918,137 @@
           
           <h3 class="card-title mb-3">Follow Us</h3>
           <div class="d-flex gap-3 mb-4">
-            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="text-decoration-none fs-4"><i class="bi bi-instagram"></i></a>
+            <a href="https://facebook.com/echohearing" class="text-decoration-none fs-4" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook"></i></a>
+            <a href="https://twitter.com/echohearing" class="text-decoration-none fs-4" target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+            <a href="https://instagram.com/echohearing" class="text-decoration-none fs-4" target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
           </div>
           
           <h3 class="card-title mb-3">Newsletter Signup</h3>
           <p class="mb-3">Stay updated with ECHO's latest features and hearing health tips.</p>
           <div class="d-flex gap-2">
-            <input type="email" placeholder="Enter your email" class="form-control">
-            <button class="btn btn-primary">Subscribe</button>
+            <input type="email" id="newsletter-email" placeholder="Enter your email" class="form-control">
+            <button type="button" id="newsletter-submit" class="btn btn-primary">Subscribe</button>
           </div>
+          <div id="newsletter-message" class="mt-2" style="display: none;"></div>
         </div>
         
         <div class="card">
-          <form>
+          <form id="contact-form">
             <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" id="name" class="form-control" placeholder="Your name" required>
+              <label for="contact-name" class="form-label">Name</label>
+              <input type="text" id="contact-name" name="name" class="form-control" placeholder="Your name" required>
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+              <label for="contact-email" class="form-label">Email</label>
+              <input type="email" id="contact-email" name="email" class="form-control" placeholder="your@email.com" required>
             </div>
             <div class="mb-3">
-              <label for="message" class="form-label">Message</label>
-              <textarea id="message" class="form-control" placeholder="Your message..." rows="3" required></textarea>
+              <label for="contact-message" class="form-label">Message</label>
+              <textarea id="contact-message" name="message" class="form-control" placeholder="Your message..." rows="3" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary w-100">Send Message</button>
           </form>
+          <div id="contact-message" class="mt-3" style="display: none;"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="section" style="background: var(--bg-secondary); border-top: 1px solid var(--border-light);">
+  <!-- Awesome Footer with Great UI/UX -->
+  <footer class="awesome-footer">
+    <div class="footer-waves">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="currentColor" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+    
+    <div class="footer-content">
     <div class="container">
-      <div class="grid grid-4">
-        <div>
-          <h3 class="fw-bold mb-3">ECHO</h3>
-          <p class="mb-2">Smarter Hearing. Anytime. Anywhere.</p>
-          <p>Making hearing health accessible through AI-powered mobile technology.</p>
+        <div class="footer-main">
+          <div class="footer-brand">
+            <div class="brand-logo-footer">
+              <i class="bi bi-heart-pulse-fill"></i>
         </div>
-        
-        <div>
-          <h5 class="fw-bold mb-3">Product</h5>
-          <ul class="list-unstyled">
-            <li><a href="#features" class="text-decoration-none">Features</a></li>
-            <li><a href="#how-it-works" class="text-decoration-none">How it Works</a></li>
-            <li><a href="#pricing" class="text-decoration-none">Pricing</a></li>
-            <li><a href="#faq" class="text-decoration-none">FAQ</a></li>
+            <h3>ECHO</h3>
+            <p class="brand-tagline">Smarter Hearing. Anytime. Anywhere.</p>
+            <p class="brand-description">Making hearing health accessible through AI-powered mobile technology.</p>
+            
+            <div class="social-links">
+              <a href="https://facebook.com/echohearing" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="https://twitter.com/echohearing" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                <i class="bi bi-twitter"></i>
+              </a>
+              <a href="https://instagram.com/echohearing" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="bi bi-instagram"></i>
+              </a>
+              <a href="https://linkedin.com/company/echohearing" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="footer-links">
+            <div class="link-group">
+              <h4>Product</h4>
+              <ul>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How it Works</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#future-features">Future Features</a></li>
+                <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
         
-        <div>
-          <h5 class="fw-bold mb-3">Company</h5>
-          <ul class="list-unstyled">
-            <li><a href="#about" class="text-decoration-none">About</a></li>
-            <li><a href="#team" class="text-decoration-none">Team</a></li>
-            <li><a href="#blog" class="text-decoration-none">Blog</a></li>
-            <li><a href="#careers" class="text-decoration-none">Careers</a></li>
+            <div class="link-group">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
         
-        <div>
-          <h5 class="fw-bold mb-3">Support</h5>
-          <ul class="list-unstyled">
-            <li><a href="#support" class="text-decoration-none">Support</a></li>
-            <li><a href="#privacy" class="text-decoration-none">Privacy Policy</a></li>
-            <li><a href="#terms" class="text-decoration-none">Terms of Service</a></li>
+            <div class="link-group">
+              <h4>Support</h4>
+              <ul>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+                <li><a href="#help">Help Center</a></li>
           </ul>
         </div>
       </div>
       
-      <hr class="my-4">
-      <div class="d-flex justify-content-between align-items-center flex-wrap">
-        <p class="mb-0">&copy; 2024 ECHO. All rights reserved.</p>
-        <p class="mb-0">Built with ❤️ by students for better hearing health.</p>
+          <div class="footer-newsletter">
+            <h4>Stay Updated</h4>
+            <p>Get the latest features and hearing health tips</p>
+            <div class="newsletter-form">
+              <input type="email" placeholder="Enter your email" class="newsletter-input">
+              <button class="newsletter-btn">
+                <i class="bi bi-send"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="footer-info">
+            <p>&copy; 2024 ECHO. All rights reserved.</p>
+            <p>Built with ❤️ by students for better hearing health.</p>
+          </div>
+          
+          <div class="footer-actions">
+            <button class="theme-toggle-footer" id="themeToggleFooter" aria-label="Toggle theme">
+              <i class="bi bi-sun-fill"></i>
+            </button>
+            <a href="#top" class="back-to-top" aria-label="Back to top">
+              <i class="bi bi-arrow-up"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
@@ -2664,10 +5100,38 @@
     attachThemeHandler(themeToggle);
     attachThemeHandler(themeToggleMobile);
     
+    // Add footer theme toggle
+    const themeToggleFooter = document.getElementById('themeToggleFooter');
+    if (themeToggleFooter) {
+      attachThemeHandler(themeToggleFooter);
+      console.log('Footer theme toggle attached');
+      
+      // Add additional debugging
+      themeToggleFooter.addEventListener('click', (e) => {
+        console.log('Footer theme toggle clicked');
+        e.stopPropagation();
+      });
+    } else {
+      console.log('Footer theme toggle button not found');
+    }
+
+    // Add back to top functionality
+    const backToTop = document.querySelector('.back-to-top');
+    if (backToTop) {
+      backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      console.log('Back to top button attached');
+    }
+    
     function updateIcon(theme) {
       const iconClass = theme === 'dark' ? 'bi bi-moon-fill' : 'bi bi-sun-fill';
-      // Update both desktop and mobile theme toggles
-      document.querySelectorAll('#themeToggle i, #themeToggleMobile i').forEach(icon => {
+      // Update all theme toggles (desktop, mobile, footer)
+      document.querySelectorAll('#themeToggle i, #themeToggleMobile i, #themeToggleFooter i').forEach(icon => {
         if (icon) icon.className = iconClass;
       });
     }
@@ -2698,7 +5162,7 @@
     }, observerOptions);
     
     // Observe all animated elements
-    document.querySelectorAll('.roadmap-item, .team-member, .section-header, .grid').forEach(el => {
+          document.querySelectorAll('.milestone, .hex-item, .team-member, .section-header, .grid, .feature-circle, .timeline-item, .about-item, .work-step, .suggestion-card').forEach(el => {
       observer.observe(el);
     });
     
@@ -2742,6 +5206,185 @@
           ticking = false;
         });
         ticking = true;
+      }
+    });
+
+    // Contact Form and Newsletter Subscription Functionality
+    const contactForm = document.getElementById('contact-form');
+    const newsletterSubmit = document.getElementById('newsletter-submit');
+    const newsletterEmail = document.getElementById('newsletter-email');
+
+    // Contact Form Submission
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+          name: document.getElementById('contact-name').value,
+          email: document.getElementById('contact-email').value,
+          message: document.getElementById('contact-message').value
+        };
+
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch('http://localhost:5000/submit-contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+          
+          const messageDiv = document.getElementById('contact-message');
+          messageDiv.style.display = 'block';
+          
+          if (result.success) {
+            messageDiv.className = 'mt-3 alert alert-success';
+            messageDiv.textContent = result.message;
+            contactForm.reset();
+          } else {
+            messageDiv.className = 'mt-3 alert alert-danger';
+            messageDiv.textContent = result.message;
+          }
+        } catch (error) {
+          console.error('Error submitting contact form:', error);
+          const messageDiv = document.getElementById('contact-message');
+          messageDiv.style.display = 'block';
+          messageDiv.className = 'mt-3 alert alert-danger';
+          messageDiv.textContent = 'Network error. Please try again.';
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+
+    // Newsletter Subscription
+    if (newsletterSubmit && newsletterEmail) {
+      newsletterSubmit.addEventListener('click', async () => {
+        const email = newsletterEmail.value.trim();
+        
+        if (!email) {
+          showNewsletterMessage('Please enter your email address.', 'danger');
+          return;
+        }
+
+        const originalText = newsletterSubmit.textContent;
+        newsletterSubmit.textContent = 'Subscribing...';
+        newsletterSubmit.disabled = true;
+
+        try {
+          const response = await fetch('http://localhost:5000/subscribe-newsletter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+          });
+
+          const result = await response.json();
+          
+          if (result.success) {
+            showNewsletterMessage(result.message, 'success');
+            newsletterEmail.value = '';
+          } else {
+            showNewsletterMessage(result.message, 'danger');
+          }
+        } catch (error) {
+          console.error('Error subscribing to newsletter:', error);
+          showNewsletterMessage('Network error. Please try again.', 'danger');
+        } finally {
+          newsletterSubmit.textContent = originalText;
+          newsletterSubmit.disabled = false;
+        }
+      });
+    }
+
+    function showNewsletterMessage(message, type) {
+      const messageDiv = document.getElementById('newsletter-message');
+      messageDiv.style.display = 'block';
+      messageDiv.className = `mt-2 alert alert-${type}`;
+      messageDiv.textContent = message;
+    }
+
+    // Debug social links functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Test all social links
+      const socialLinks = document.querySelectorAll('.social-link');
+      console.log(`Found ${socialLinks.length} social links`);
+      
+      socialLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+          console.log(`Social link ${index + 1} clicked:`, this.href);
+        });
+      });
+
+      // Test form inputs
+      const inputs = document.querySelectorAll('input, textarea');
+      console.log(`Found ${inputs.length} form inputs`);
+      
+      inputs.forEach((input, index) => {
+        input.addEventListener('focus', function() {
+          console.log(`Input ${index + 1} focused:`, this.id || this.name);
+        });
+        
+        // Ensure inputs are clickable
+        input.style.pointerEvents = 'auto';
+        input.style.zIndex = '100';
+      });
+
+      // Force enable all form inputs in contact section
+      const contactInputs = document.querySelectorAll('#contact input, #contact textarea, #contact button');
+      contactInputs.forEach(input => {
+        input.style.pointerEvents = 'auto';
+        input.style.zIndex = '100';
+        input.style.position = 'relative';
+      });
+
+      // Force enable newsletter inputs
+      const newsletterInput = document.getElementById('newsletter-email');
+      const newsletterButton = document.getElementById('newsletter-submit');
+      if (newsletterInput) {
+        newsletterInput.style.pointerEvents = 'auto';
+        newsletterInput.style.zIndex = '100';
+        newsletterInput.style.position = 'relative';
+        
+        // Add click test
+        newsletterInput.addEventListener('click', function() {
+          console.log('Newsletter input clicked!');
+        });
+      }
+      if (newsletterButton) {
+        newsletterButton.style.pointerEvents = 'auto';
+        newsletterButton.style.zIndex = '100';
+        newsletterButton.style.position = 'relative';
+      }
+
+      // Add click test for contact form inputs
+      const contactNameInput = document.getElementById('contact-name');
+      const contactEmailInput = document.getElementById('contact-email');
+      const contactMessageInput = document.getElementById('contact-message');
+      
+      if (contactNameInput) {
+        contactNameInput.addEventListener('click', function() {
+          console.log('Contact name input clicked!');
+        });
+      }
+      if (contactEmailInput) {
+        contactEmailInput.addEventListener('click', function() {
+          console.log('Contact email input clicked!');
+        });
+      }
+      if (contactMessageInput) {
+        contactMessageInput.addEventListener('click', function() {
+          console.log('Contact message input clicked!');
+        });
       }
     });
     
@@ -2880,6 +5523,38 @@
     
     window.addEventListener('scroll', scrollAnimations);
     window.addEventListener('load', scrollAnimations);
+
+    // FAQ Accordion Functionality
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const faqItem = question.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+          faqItem.classList.add('active');
+        }
+      });
+    });
+
+    // Feature Item Interactions
+    document.querySelectorAll('.feature-item').forEach(item => {
+      item.addEventListener('click', () => {
+        // Add click animation
+        item.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          item.style.transform = 'translateY(-8px)';
+        }, 150);
+        
+        // You can add navigation or modal functionality here
+        console.log('Feature clicked:', item.dataset.feature);
+      });
+    });
   </script>
 </body>
 </html>
